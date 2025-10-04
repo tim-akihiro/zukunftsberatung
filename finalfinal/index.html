@@ -50,6 +50,12 @@ Sichern Sie sich einen Platz in der Zukunft.">
 </script>
 
   <link rel="canonical" href="https://www.deinedomain.de/">
+	<script>
+  if (location.hash === '#cookiebanner') {
+    history.replaceState(null, '', location.pathname + location.search);
+  }
+</script>
+
 </head>
 <body>
 
