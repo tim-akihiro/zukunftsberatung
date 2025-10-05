@@ -681,59 +681,87 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
 
     
     
+<div class="mbr-form form-wrap card-wrap">
+  <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="kontakt">
+    <input type="hidden" name="access_key" value="a498705a-95ab-486a-9756-f861bd2e20d3" />
+    <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
 
-    <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-5">
-                <div class="content-wrapper">
-                    
-                    <div class="title-wrapper">
-                        <h3 class="mbr-section-title mbr-fonts-style display-2"><strong>
-                            Kontaktformular</strong></h3>
-                    </div>
-                    <div class="text-wrapper">
-                        <p class="mbr-text mbr-fonts-style display-4"><strong>Bitte teilen Sie uns konkret mit, auf was sich ihr Anliegen bezieht. Dies ermöglicht uns eine strukturierte Bearbeitung.</strong></p>
-                    </div>
-                </div>
-                <div class="mbr-form form-wrap card-wrap" data-form-type="formoid">
-<form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="kontakt">
-  <input type="hidden" name="access_key" value="a498705a-95ab-486a-9756-f861bd2e20d3" />
-  <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
+    <label for="name">Ihr Name</label>
+    <input id="name" type="text" name="name" required />
 
-  <label>Ihr Name</label>
-  <input type="text" name="name" />
+    <label for="email">E-Mail*</label>
+    <input id="email" type="email" name="email" required />
 
-  <label>E-Mail*</label>
-  <input type="email" name="email" required />
+    <label for="phone">Telefon</label>
+    <input id="phone" type="text" name="phone" />
 
-  <label>Telefon</label>
-  <input type="text" name="phone" />
+    <label for="message">Ihr Anliegen*</label>
+    <textarea id="message" name="message" required></textarea>
 
-  <label>Ihr Anliegen*</label>
-  <textarea name="message" required></textarea>
+    <label class="privacy">
+      <input type="checkbox" name="privacy" required />
+      Ich habe die <a href="/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen.*
+    </label>
 
-  <label>
-    <input type="checkbox" name="privacy" required />
-    Ich habe die <a href="/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen.*
-  </label>
+    <input type="hidden" name="from_name" value="Zukunftsberatung Website" />
+    <input type="hidden" name="subject" value="Neue Anfrage über zukunftsberatung.xyz" />
+    <input type="hidden" name="replyto" value="{email}" />
+    <input type="hidden" name="redirect" value="https://zukunftsberatung.xyz/?success=1" />
 
-  <!-- Meta -->
-  <input type="hidden" name="from_name" value="Zukunftsberatung Website" />
-  <input type="hidden" name="subject" value="Neue Anfrage über zukunftsberatung.xyz" />
-  <input type="hidden" name="replyto" value="{email}" />
-  <input type="hidden" name="redirect" value="https://zukunftsberatung.xyz/?success=1" />
+    <button type="submit" id="kontakt-submit">Abschicken</button>
+    <p id="form-status" aria-live="polite"></p>
+  </form>
+</div>
 
-  <button type="submit">Abschicken</button>
-  <p id="form-status" aria-live="polite"></p>
-</form>
+<style>
+  /* Minimal-modern */
+  #kontakt { max-width: 720px; margin: 0 auto; }
+  #kontakt label { display:block; margin:10px 0 6px; font-weight:600; }
+  #kontakt input[type="text"],
+  #kontakt input[type="email"],
+  #kontakt textarea {
+    width:100%;
+    padding:12px 14px;
+    background: transparent;
+    border:1px solid rgba(0,0,0,.25);
+    border-radius:10px;           /* leichte Rundung */
+    outline:none;
+  }
+  #kontakt input:focus, #kontakt textarea:focus {
+    border-color: rgba(0,0,0,.5);
+  }
+  #kontakt textarea { min-height:120px; resize:vertical; }
+  #kontakt .privacy { display:flex; gap:8px; align-items:center; margin:12px 0; font-weight:500; }
+  #kontakt-submit{
+    display:inline-block;
+    padding:12px 18px;
+    border-radius:10px;
+    border:1px solid transparent;
+    background:#333;              /* Fallback */
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+  }
+  #kontakt-submit:hover { filter:brightness(1.05); }
+</style>
 
 <script>
-  // Optional: Erfolgs-Feedback ohne Redirect-Page anpassen
-  if (new URLSearchParams(location.search).get('success') === '1') {
-    const s = document.getElementById('form-status');
-    if (s) s.textContent = 'Danke. Wir melden uns zeitnah.';
-  }
+  // Button-Farbe = Farbe der Überschrift „Kontaktformular“
+  (function () {
+    const heading = document.querySelector('.title-wrapper h3');
+    const btn = document.getElementById('kontakt-submit');
+    if (heading && btn) {
+      const c = getComputedStyle(heading).color;
+      btn.style.backgroundColor = c;
+      btn.style.borderColor = c;
+    }
+    if (new URLSearchParams(location.search).get('success') === '1') {
+      const s = document.getElementById('form-status');
+      if (s) s.textContent = 'Danke. Wir melden uns zeitnah.';
+    }
+  })();
 </script>
+
 
 </div>
             </div>
