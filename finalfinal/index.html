@@ -696,40 +696,45 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
                     </div>
                 </div>
                 <div class="mbr-form form-wrap card-wrap" data-form-type="formoid">
-<!--Formbuilder Form-->
-<form action="https://mobirise.eu/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="VmSqAezAQQ5dyb+N+Di/eIP+jIww9rKhZaVFeld8WeBFwK6R/K1ok2VBcJy3plgS/Dqm1TIuvVBX/C8IJtb8a4kooNmJ9Sv10b/B436TotAec/1h+FfwQOx/ZEuPvx7G.YMQQA9XN1HCWeVXRkRDGeKarFF3OwJDdRPo/8S8go89fJBfB1kTcp6UtqNip4ZVToL7MmnJT7jJ1nfvvL5qpBjSk1CEZl5JhFE0U1WzknFjEgO6P0ITiSnB7l3xnOW2J">
-<div class="row">
-<div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Vielen Dank. Wir melden uns bald bei Ihnen.</div>
-<div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12"> Oops...! some problem! </div>
-</div>
-<div class="dragArea row">
-<div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3 mb-3 mb-3 mb-3" data-for="name">
-<label for="name-form01-36" class="form-control-label mbr-fonts-style display-7">Name</label>
-<input type="text" name="name" data-form-field="name" class="form-control display-7" value="" id="name-form01-36">
-</div>
-<div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3 mb-3 mb-3 mb-3" data-for="Email">
-<label for="Email-form01-36" class="form-control-label mbr-fonts-style display-7">E-Mail Adresse*</label>
-<input type="email" name="Email" data-form-field="Email" required="required" class="form-control display-7" value="" id="Email-form01-36">
-</div>
-<div data-for="Telefonnummer" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3 mb-3 mb-3 mb-3">
-<label for="Telefonnummer-form01-36" class="form-control-label mbr-fonts-style display-7">Telefonnummer</label>
-<input type="text" name="Telefonnummer" data-form-field="Telefonnummer" class="form-control display-7" value="" id="Telefonnummer-form01-36">
-</div>
-<div data-for="textarea" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3 mb-3 mb-3 mb-3">
-<label for="textarea-form01-36" class="form-control-label mbr-fonts-style display-7">Ihr Anliegen oder Feedback...</label>
-<textarea name="textarea" data-form-field="textarea" required="required" class="form-control display-7" id="textarea-form01-36"></textarea>
-</div>
-<label style="display:block;margin:.5rem 0;">
-  <input type="checkbox" required="">
-  Ich habe die <a href="rechte.html#datenschutz">Datenschutzerklärung</a> gelesen.
-</label>
+<form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="kontakt">
+  <input type="hidden" name="access_key" value="a498705a-95ab-486a-9756-f861bd2e20d3" />
+  <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
 
+  <label>Ihr Name</label>
+  <input type="text" name="name" />
 
-<div class="col-md-auto col mbr-section-btn">
-<button type="submit" class="w-100 w-100 btn btn-warning display-4">Abschicken</button>
-</div>
-</div>
-</form><!--Formbuilder Form-->
+  <label>E-Mail*</label>
+  <input type="email" name="email" required />
+
+  <label>Telefon</label>
+  <input type="text" name="phone" />
+
+  <label>Ihr Anliegen*</label>
+  <textarea name="message" required></textarea>
+
+  <label>
+    <input type="checkbox" name="privacy" required />
+    Ich habe die <a href="/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen.*
+  </label>
+
+  <!-- Meta -->
+  <input type="hidden" name="from_name" value="Zukunftsberatung Website" />
+  <input type="hidden" name="subject" value="Neue Anfrage über zukunftsberatung.xyz" />
+  <input type="hidden" name="replyto" value="{email}" />
+  <input type="hidden" name="redirect" value="https://zukunftsberatung.xyz/?success=1" />
+
+  <button type="submit">Abschicken</button>
+  <p id="form-status" aria-live="polite"></p>
+</form>
+
+<script>
+  // Optional: Erfolgs-Feedback ohne Redirect-Page anpassen
+  if (new URLSearchParams(location.search).get('success') === '1') {
+    const s = document.getElementById('form-status');
+    if (s) s.textContent = 'Danke. Wir melden uns zeitnah.';
+  }
+</script>
+
 </div>
             </div>
         </div>
