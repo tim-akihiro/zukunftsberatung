@@ -6862,3 +6862,10 @@ img {
 .cid-uYnUEKjMY5 .mbr-section-btn {
   text-align: right;
 }
+/* iOS Schriftgrößen fix + einheitliche Font */
+html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+:root{
+  --zb-font:"Liter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,"Noto Sans",sans-serif;
+  font-optical-sizing:none;
+}
+html, body, .mbr-fonts-style{ font-family:var(--zb-font) !important; }
