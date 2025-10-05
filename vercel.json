@@ -1,0 +1,14 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/:page.html", "destination": "/:page", "permanent": true }
+    { "source": "https://www.zukunftsberatung.xyz/(.*)", "destination": "https://zukunftsberatung.xyz/$1", "permanent": true }
+  ],
+  "headers": [
+    { "source": "/(.*)", "headers": [
+      { "key": "Cache-Control", "value": "public, max-age=3600" }
+    ]}
+  ]
+}
