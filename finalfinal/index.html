@@ -680,7 +680,8 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
     
 
     
-    
+<div class="mbr-form form-wrap card-wrap contact-card">
+  
 <div class="mbr-form form-wrap card-wrap">
   <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="kontakt">
     <input type="hidden" name="access_key" value="a498705a-95ab-486a-9756-f861bd2e20d3" />
@@ -715,6 +716,35 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
 
 <style>
   /* Minimal-modern */
+	/* Karte schmaler und zentriert */
+.contact-card{
+  max-width: 880px;            /* Zielbreite ~ rot markiert */
+  width: min(92vw, 880px);     /* mobil flexibel */
+  margin: 0 auto;              /* zentrieren */
+  padding: 32px 28px !important;
+  border-radius: 18px !important;
+}
+
+/* Optional: etwas mehr Luft zum Viewportrand */
+.contact-card::before,
+.contact-card::after{ content:none; } /* falls Mobirise Deko-Kanten rendert */
+
+/* Inputs modern/transparenter (falls noch nicht gesetzt) */
+#kontakt input[type="text"],
+#kontakt input[type="email"],
+#kontakt textarea{
+  width:100%;
+  padding:12px 14px;
+  background:transparent !important;
+  border:1px solid rgba(0,0,0,.2) !important;
+  border-radius:10px !important;
+}
+
+/* mobil engerer Rand */
+@media (max-width: 600px){
+  .contact-card{ width: 94vw; padding:24px 18px !important; }
+}
+
   #kontakt { max-width: 720px; margin: 0 auto; }
   #kontakt label { display:block; margin:10px 0 6px; font-weight:600; }
   #kontakt input[type="text"],
@@ -762,7 +792,7 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
   })();
 </script>
 
-
+</div>
 </div>
             </div>
         </div>
