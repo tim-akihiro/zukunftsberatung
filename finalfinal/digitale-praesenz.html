@@ -375,56 +375,119 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
     
 
     
-    
-
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-5">
-                <div class="content-wrapper">
-                    
-                    <div class="title-wrapper">
-                        <h3 class="mbr-section-title mbr-fonts-style display-2"><strong>
-                            Kontaktformular</strong></h3>
-                    </div>
-                    <div class="text-wrapper">
-                        <p class="mbr-text mbr-fonts-style display-4"><strong>Bitte teilen Sie uns konkret mit, auf was sich ihr Anliegen bezieht. Dies ermöglicht uns eine strukturierte Bearbeitung.</strong><br></p>
-                    </div>
-                </div>
-                <div class="mbr-form form-wrap card-wrap" data-form-type="formoid">
-<!--Formbuilder Form-->
-<form action="https://mobirise.eu/" method="POST" class="mbr-form form-with-styler" data-form-title="Form Name"><input type="hidden" name="email" data-form-email="true" value="d0BKzfnk0dsWTuwN4xM4c9hxsHydmigyzJXEiswq8NIu647tvLNHeAjbF9ouas2L3tAdBN90c1jVrqfQ3PcJpkDuXXDSNC7OR5FJvCLo6APTNzv+vrQ8gMC8+DU4Nsc2.sFXktKJ6jf2VLrEdRjsgbttRuYdGsW7iAq+aRRgfVU/KGpzR9f6k3rUcGS78L6VkSrrQUJpUdQJ5gqVj9tlmSVoh6ltLkutHUE41wo61vg8LWes59k0EKIamaacQmqCj">
-<div class="row">
-<div hidden="hidden" data-form-alert="" class="alert alert-success col-12">Vielen Dank. Wir melden uns bald bei Ihnen.</div>
-<div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12"> Oops...! some problem! </div>
-</div>
-<div class="dragArea row">
-<div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3 mb-3 mb-3 mb-3" data-for="name">
-<label for="name-form01-4u" class="form-control-label mbr-fonts-style display-7">Name</label>
-<input type="text" name="name" data-form-field="name" class="form-control display-7" value="" id="name-form01-4u">
-</div>
-<div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3 mb-3 mb-3 mb-3" data-for="Email">
-<label for="Email-form01-4u" class="form-control-label mbr-fonts-style display-7">E-Mail Adresse*</label>
-<input type="email" name="Email" data-form-field="Email" required="required" class="form-control display-7" value="" id="Email-form01-4u">
-</div>
-<div data-for="Telefonnummer" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3 mb-3 mb-3 mb-3">
-<label for="Telefonnummer-form01-4u" class="form-control-label mbr-fonts-style display-7">Telefonnummer</label>
-<input type="text" name="Telefonnummer" data-form-field="Telefonnummer" class="form-control display-7" value="" id="Telefonnummer-form01-4u">
-</div>
-<div data-for="textarea" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3 mb-3 mb-3 mb-3">
-<label for="textarea-form01-4u" class="form-control-label mbr-fonts-style display-7">Ihr Anliegen oder Feedback...</label>
-<textarea name="textarea" data-form-field="textarea" required="required" class="form-control display-7" id="textarea-form01-4u"></textarea>
-</div>
-<label style="display:block;margin:.5rem 0;">
-  <input type="checkbox" required="">
-  Ich habe die <a href="rechte.html#datenschutz">Datenschutzerklärung</a> gelesen.
-</label>
+<div class="mbr-form form-wrap card-wrap contact-card">
 
 
-<div class="col-md-auto col mbr-section-btn">
-<button type="submit" class="w-100 w-100 btn btn-warning display-4">Abschicken</button>
+
+  <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="kontakt">
+    <input type="hidden" name="access_key" value="a498705a-95ab-486a-9756-f861bd2e20d3" />
+    <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
+    <label for="name">Ihr Name</label>
+    <input id="name" type="text" name="name" required />
+
+    <label for="email">E-Mail*</label>
+    <input id="email" type="email" name="email" required />
+
+    <label for="phone">Telefon</label>
+    <input id="phone" type="text" name="phone" />
+
+    <label for="message">Ihr Anliegen*</label>
+    <textarea id="message" name="message" required></textarea>
+
+    <label class="privacy">
+      <input type="checkbox" name="privacy" required />
+      Ich habe die <a href="/datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a> gelesen.*
+    </label>
+
+    <input type="hidden" name="from_name" value="Zukunftsberatung Website" />
+    <input type="hidden" name="subject" value="Neue Anfrage über zukunftsberatung.xyz" />
+    <input type="hidden" name="replyto" value="{email}" />
+    <input type="hidden" name="redirect" value="https://zukunftsberatung.xyz/?success=1" />
+
+    <button type="submit" id="kontakt-submit">Abschicken</button>
+    <p id="form-status" aria-live="polite"></p>
+  </form>
 </div>
-</div>
-</form><!--Formbuilder Form-->
+
+<style>
+  /* Minimal-modern */
+	/* Karte schmaler und zentriert */
+.contact-card{
+  max-width: 880px;            /* Zielbreite ~ rot markiert */
+  width: min(92vw, 880px);     /* mobil flexibel */
+  margin: 0 auto;              /* zentrieren */
+  padding: 32px 28px !important;
+  border-radius: 18px !important;
+}
+
+/* Optional: etwas mehr Luft zum Viewportrand */
+.contact-card::before,
+.contact-card::after{ content:none; } /* falls Mobirise Deko-Kanten rendert */
+
+/* Inputs modern/transparenter (falls noch nicht gesetzt) */
+#kontakt input[type="text"],
+#kontakt input[type="email"],
+#kontakt textarea{
+  width:100%;
+  padding:12px 14px;
+  background:transparent !important;
+  border:1px solid rgba(0,0,0,.2) !important;
+  border-radius:10px !important;
+}
+
+/* mobil engerer Rand */
+@media (max-width: 600px){
+  .contact-card{ width: 94vw; padding:24px 18px !important; }
+}
+
+  #kontakt { max-width: 720px; margin: 0 auto; }
+  #kontakt label { display:block; margin:10px 0 6px; font-weight:600; }
+  #kontakt input[type="text"],
+  #kontakt input[type="email"],
+  #kontakt textarea {
+    width:100%;
+    padding:12px 14px;
+    background: transparent;
+    border:1px solid rgba(0,0,0,.25);
+    border-radius:10px;           /* leichte Rundung */
+    outline:none;
+  }
+  #kontakt input:focus, #kontakt textarea:focus {
+    border-color: rgba(0,0,0,.5);
+  }
+  #kontakt textarea { min-height:120px; resize:vertical; }
+  #kontakt .privacy { display:flex; gap:8px; align-items:center; margin:12px 0; font-weight:500; }
+  #kontakt-submit{
+    display:inline-block;
+    padding:12px 18px;
+    border-radius:10px;
+    border:1px solid transparent;
+    background:#333;              /* Fallback */
+    color:#fff;
+    font-weight:700;
+    cursor:pointer;
+  }
+  #kontakt-submit:hover { filter:brightness(1.05); }
+</style>
+
+<script>
+  // Button-Farbe = Farbe der Überschrift „Kontaktformular“
+  (function () {
+    const heading = document.querySelector('.title-wrapper h3');
+    const btn = document.getElementById('kontakt-submit');
+    if (heading && btn) {
+      const c = getComputedStyle(heading).color;
+      btn.style.backgroundColor = c;
+      btn.style.borderColor = c;
+    }
+    if (new URLSearchParams(location.search).get('success') === '1') {
+      const s = document.getElementById('form-status');
+      if (s) s.textContent = 'Danke. Wir melden uns zeitnah.';
+    }
+  })();
+</script>
+
 </div>
             </div>
         </div>
