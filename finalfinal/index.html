@@ -939,10 +939,10 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
 
 <script>
 (function(){
-const CTA_LABEL = '24/7 Terminvereinbarung';
-const TITLE     = 'Sofort zum Termin';
-const SUBTITLE  = 'Antwort in Sekunden. Termin in Minuten.';
-const WELCOME_1 = 'Guten Tag! Sie wollen einen Termin?';
+const CTA_LABEL = '24/7 Chatbot';
+const TITLE     = 'Antwort in Sekunden. Termin in Minuten.';
+const SUBTITLE  = 'Nutzung außerhalb der Beratung und Termvereinbarung nicht erlaubt.';
+const WELCOME_1 = 'Guten Tag! Gerne vereinbare ich einen Termin für Sie.';
 const WELCOME_2 = 'Bitte nennen Sie dafür Ihren Namen, E-Mail und gewünschte Uhrzeit zwischen 17–20 Uhr.';
 
 
@@ -1002,7 +1002,7 @@ const WELCOME_2 = 'Bitte nennen Sie dafür Ihren Namen, E-Mail und gewünschte U
       const r = await fetch('/api/n8n-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, threadId })
+        body: JSON.stringify({ message: text, sessionId: threadId })
       });
 
       const raw = await r.text();
