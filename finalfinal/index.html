@@ -894,25 +894,21 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
 </script>
 <script>"use strict";if("loading"in HTMLImageElement.prototype){document.querySelectorAll('img[loading="lazy"]').forEach(e=>{e.src=e.dataset.src;if(e.getAttribute("style")){e.setAttribute("data-temp-style",e.getAttribute("style"))};if(e.getAttribute("data-aspectratio")){e.style.paddingTop=100*e.getAttribute("data-aspectratio")+"%";e.style.height=0;}e.onload=function(){if(e.getAttribute("data-temp-style")){e.setAttribute("style", e.getAttribute("data-temp-style"))}else{e.removeAttribute("style")};e.removeAttribute("data-temp-style")}})}else{const e=document.createElement("script");e.src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js";document.body.appendChild(e)}</script>
 
-	
-// Chatwidget 
 <style>
-:root{
-  --zb-accent:#A78AFF;        /* CTA + User-Bubble */
-  --zb-accent-text:#ffffff;
-  --zb-bot:#D4EDF9;           /* Bot-Bubble */
-  --zb-user:#A78AFF;          /* User-Bubble */
-  --zb-user-text:#ffffff;
-  --zb-head-bg:#C3B4FB;       /* Kopfzeile */
-  --zb-radius:14px;
-}
-#zb-head{ background:var(--zb-head-bg); color:#111; }
-
+  :root{
+    --zb-accent:#A78AFF;        /* CTA + User-Bubble */
+    --zb-accent-text:#ffffff;
+    --zb-bot:#D4EDF9;           /* Bot-Bubble */
+    --zb-user:#A78AFF;          /* User-Bubble */
+    --zb-user-text:#ffffff;
+    --zb-head-bg:#C3B4FB;       /* Kopfzeile */
+    --zb-radius:14px;
+  }
   #zb-chat{position:fixed;right:16px;bottom:16px;z-index:9999;font:14px/1.4 system-ui,-apple-system,Segoe UI,Roboto,Arial}
   #zb-btn{background:var(--zb-accent);color:var(--zb-accent-text);border:0;padding:10px 14px;border-radius:999px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.15)}
   #zb-panel{display:none;width:360px;max-width:94vw;border:1px solid #ddd;border-radius:16px;background:#fff;box-shadow:0 12px 32px rgba(0,0,0,.18);overflow:hidden}
-  #zb-head{padding:12px 14px;border-bottom:1px solid #eee;font-weight:600}
-  #zb-sub{padding:0 14px 8px;color:#555;font-size:13px}
+  #zb-head{padding:12px 14px;border-bottom:1px solid #eee;font-weight:600;background:var(--zb-head-bg)}
+  #zb-sub{padding:0 14px 8px;color:#333;font-size:13px}
   #zb-body{height:360px;overflow:auto;padding:12px}
   #zb-input{display:flex;border-top:1px solid #eee}
   #zb-input input{flex:1;border:0;padding:12px 12px;outline:none}
@@ -925,10 +921,10 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
 </style>
 
 <div id="zb-chat" aria-live="polite">
-  <button id="zb-btn" type="button">Sofort Termin vereinbaren</button>
+  <button id="zb-btn" type="button">24/7 Terminvereinbarung in Minuten</button>
   <div id="zb-panel" role="dialog" aria-label="Beratung & Termin">
     <div id="zb-head">Beratung & Termin</div>
-    <div id="zb-sub">Wir antworten 17–20 Uhr live. Dauer 30 Min.</div>
+    <div id="zb-sub">Antwort in Sekunden. Termin 17–20 Uhr, 30 Min.</div>
     <div id="zb-body"></div>
     <div id="zb-input">
       <input id="zb-text" placeholder="Ihre Nachricht …" autocomplete="off" />
@@ -939,96 +935,57 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
 
 <script>
 (function(){
-const CTA_LABEL = '24/7 Chatbot';
-const TITLE     = 'Antwort in Sekunden. Termin in Minuten.';
-const SUBTITLE  = 'Nutzung außerhalb der Beratung und Termvereinbarung nicht erlaubt.';
-const WELCOME_1 = 'Guten Tag! Gerne vereinbare ich einen Termin für Sie.';
-const WELCOME_2 = 'Bitte nennen Sie dafür Ihren Namen, E-Mail und gewünschte Uhrzeit zwischen 17–20 Uhr.';
+  const btn=document.getElementById('zb-btn');
+  const panel=document.getElementById('zb-panel');
+  const body=document.getElementById('zb-body');
+  const input=document.getElementById('zb-text');
+  const send=document.getElementById('zb-send');
 
+  const WELCOME_1='Guten Tag! Ich vereinbare sofort Ihren Termin.';
+  const WELCOME_2='Bitte nennen Sie Name, E-Mail und einen Slot zwischen 17–20 Uhr.';
 
-  // —— Elemente ——
-  const btn   = document.getElementById('zb-btn');
-  const panel = document.getElementById('zb-panel');
-  const head  = document.getElementById('zb-head');
-  const sub   = document.getElementById('zb-sub');
-  const body  = document.getElementById('zb-body');
-  const input = document.getElementById('zb-text');
-  const send  = document.getElementById('zb-send');
+  const sessionId=(crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now());
 
-  // —— Texte setzen ——
-  btn.textContent  = CTA_LABEL;
-  head.textContent = TITLE;
-  sub.textContent  = SUBTITLE;
-
-  // —— Session-ID ——
-  const threadId = (crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now());
-
-  // —— UI helpers ——
-  function add(role, text){
-    const row = document.createElement('div');
-    row.className = 'zb-msg ' + (role === 'user' ? 'zb-user' : 'zb-bot');
-    const bubble = document.createElement('div');
-    bubble.className = 'zb-bubble';
-    bubble.textContent = text;
-    row.appendChild(bubble);
-    body.appendChild(row);
-    body.scrollTop = body.scrollHeight;
+  function add(role,text){
+    const row=document.createElement('div');
+    row.className='zb-msg '+(role==='user'?'zb-user':'zb-bot');
+    const b=document.createElement('div');
+    b.className='zb-bubble';
+    b.textContent=text;
+    row.appendChild(b); body.appendChild(row);
+    body.scrollTop=body.scrollHeight;
   }
 
-  function setLoading(on){
-    if(on){ add('bot', '…'); }
-  }
-
-  // —— Open/Close ——
-  btn.onclick = function(){
-    const open = panel.style.display !== 'block';
-    panel.style.display = open ? 'block' : 'none';
-    if(open && !panel.dataset.welcomed){
-      add('bot', WELCOME_1);
-      add('bot', WELCOME_2);
-      panel.dataset.welcomed = '1';
-      input.focus();
-    }
+  btn.onclick=()=>{ 
+    const open=panel.style.display!=='block';
+    panel.style.display=open?'block':'none';
+    if(open && !panel.dataset.welcomed){ add('bot',WELCOME_1); add('bot',WELCOME_2); panel.dataset.welcomed='1'; input.focus(); }
   };
 
   async function sendMsg(){
-    const text = input.value.trim();
-    if(!text) return;
-    input.value = '';
-    add('user', text);
-    setLoading(true);
-
+    const text=input.value.trim(); if(!text) return;
+    input.value=''; add('user',text); add('bot','…');
     try{
-      const r = await fetch('/api/n8n-chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, sessionId: threadId })
+      const r=await fetch('/api/n8n-chat',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({ action:'sendMessage', sessionId, chatInput:text })
       });
-
-      const raw = await r.text();
-      let data = null;
-      try { data = JSON.parse(raw); } catch(_) {}
-      const reply =
-        (data && (data.text || data.response || data.answer || data?.data?.text || data?.items?.[0]?.json?.text))
-        || raw || 'Kein Text erhalten.';
-
-      // letzten Bot-Placeholder "…" ersetzen
-      const dots = body.querySelectorAll('.zb-bot .zb-bubble');
-      for(let i=dots.length-1;i>=0;i--){
-        if(dots[i].textContent === '…'){ dots[i].textContent = reply; break; }
-      }
-    } catch(e){
-      const dots = body.querySelectorAll('.zb-bot .zb-bubble');
-      for(let i=dots.length-1;i>=0;i--){
-        if(dots[i].textContent === '…'){ dots[i].textContent = 'Fehler. Schreiben Sie uns: tim.akihiro@gmail.com'; break; }
-      }
+      const raw=await r.text(); let data=null; try{ data=JSON.parse(raw);}catch(_){}
+      const reply=(data&&(data.output||data?.items?.[0]?.json?.output))||raw||'Kein Text erhalten.';
+      const dots=body.querySelectorAll('.zb-bot .zb-bubble'); 
+      for(let i=dots.length-1;i>=0;i--){ if(dots[i].textContent==='…'){ dots[i].textContent=reply; break; } }
+    }catch(e){
+      const dots=body.querySelectorAll('.zb-bot .zb-bubble'); 
+      for(let i=dots.length-1;i>=0;i--){ if(dots[i].textContent==='…'){ dots[i].textContent='Fehler. Schreiben Sie uns: tim.akihiro@gmail.com'; break; } }
     }
   }
 
-  send.onclick = sendMsg;
-  input.addEventListener('keydown', (e)=>{ if(e.key==='Enter') sendMsg(); });
+  send.onclick=sendMsg;
+  input.addEventListener('keydown',(e)=>{ if(e.key==='Enter') sendMsg(); });
 })();
 </script>
+
 
 
 
