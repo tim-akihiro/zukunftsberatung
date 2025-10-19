@@ -941,7 +941,7 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
 </style>
 
 <div id="zb-chat" aria-live="polite">
-  <button id="zb-btn" type="button">24/7 Chatbot für Termine</button>
+  <button id="zb-btn" type="button">24/7 Chatbot</button>
   <div id="zb-panel" role="dialog" aria-label="Vereinbaren Sie jetzt Ihren Termin.">
     <div id="zb-head">Vereinbaren Sie jetzt Ihren Termin.</div>
     <div id="zb-sub">Antwort in Sekunden. Termin in Minuten.</div>
@@ -961,8 +961,8 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
   const body=document.getElementById('zb-body');
   const input=document.getElementById('zb-text');
   const send=document.getElementById('zb-send');
-  const WELCOME_1='Guten Tag! Ich vereinbare für Sie den Termin.';
-  const WELCOME_2='Bitte nennen Sie mir dafür Ihren Name, E-Mail und wann es für Sie passt.';
+  const WELCOME_1='Guten Tag! Wie kann ich helfen?';
+
 
   const sessionId=(crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now());
 
