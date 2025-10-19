@@ -641,6 +641,97 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
   });
 })();
 </script>
+<style>
+  :root{
+    --zb-accent:#7e10e6;      /* CTA + User-Bubble */
+    --zb-accent-text:#fff;
+    --zb-bot:#D4EDF9;           /* Bot-Bubble */
+    --zb-user:#A78AFF;          /* User-Bubble */
+    --zb-user-text:#fff;
+    --zb-head-bg:#C3B4FB;       /* Kopfzeile */
+    --zb-radius:14px;
+  }
+  #zb-chat{position:fixed;right:14px;bottom:14px;z-index:9999;font-weight: 400;}
+  #zb-btn{background:var(--zb-accent);color:var(--zb-accent-text);font-weight: 600;border:0;padding:.5rem .8rem;border-radius:10px;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.15)}
+  #zb-panel{display:none;width:360px;max-width:94vw;border:1px solid #ddd;border-radius:16px;background:#fff;box-shadow:0 12px 32px rgba(0,0,0,.18);overflow:hidden}
+  #zb-head{padding:12px 14px;border-bottom:1px solid #eee;font-weight:400;background:var(--zb-head-bg)}
+  #zb-sub{padding:0 14px 8px;color:#333;font-size:13px;font-weight: 400;}
+  #zb-body{height:360px;overflow:auto;padding:12px}
+  #zb-input{display:flex;border-top:1px solid #eee}
+  #zb-input input{flex:1;border:0;padding:12px 12px;outline:none}
+  #zb-input button{border:0;padding:10px 14px;background:var(--zb-accent);color:var(--zb-accent-text);cursor:pointer;border-top-left-radius:0;border-bottom-left-radius:0}
+  .zb-msg{margin:8px 0}
+  .zb-bubble{display:inline-block;padding:8px 10px;border-radius:var(--zb-radius);max-width:82%}
+  .zb-bot .zb-bubble{background:var(--zb-bot)}
+  .zb-user .zb-bubble{background:var(--zb-user);color:var(--zb-user-text)}
+  @media (max-width:480px){#zb-panel{width:96vw}}
+</style>
+
+<div id="zb-chat" aria-live="polite">
+  <button id="zb-btn" type="button">24/7 Chatbot für Termine</button>
+  <div id="zb-panel" role="dialog" aria-label="Vereinbaren Sie jetzt Ihren Termin.">
+    <div id="zb-head">Vereinbaren Sie jetzt Ihren Termin.</div>
+    <div id="zb-sub">Antwort in Sekunden. Termin in Minuten.</div>
+    <div id="zb-body"></div>
+    <div id="zb-input">
+      <input id="zb-text" placeholder="Ihre Nachricht …" autocomplete="on" />
+      <button id="zb-send" type="button">Senden</button>
+    </div>
+  </div>
+</div>
+	
+
+<script>
+(function(){
+  const btn=document.getElementById('zb-btn');
+  const panel=document.getElementById('zb-panel');
+  const body=document.getElementById('zb-body');
+  const input=document.getElementById('zb-text');
+  const send=document.getElementById('zb-send');
+  const WELCOME_1='Guten Tag! Ich vereinbare für Sie den Termin.';
+  const WELCOME_2='Bitte nennen Sie mir dafür Ihren Name, E-Mail und wann es für Sie passt.';
+
+  const sessionId=(crypto&&crypto.randomUUID)?crypto.randomUUID():String(Date.now());
+
+  function add(role,text){
+    const row=document.createElement('div');
+    row.className='zb-msg '+(role==='user'?'zb-user':'zb-bot');
+    const b=document.createElement('div');
+    b.className='zb-bubble';
+    b.textContent=text;
+    row.appendChild(b); body.appendChild(row);
+    body.scrollTop=body.scrollHeight;
+  }
+
+  btn.onclick=()=>{ 
+    const open=panel.style.display!=='block';
+    panel.style.display=open?'block':'none';
+    if(open && !panel.dataset.welcomed){ add('bot',WELCOME_1); add('bot',WELCOME_2); panel.dataset.welcomed='1'; input.focus(); }
+  };
+
+  async function sendMsg(){
+    const text=input.value.trim(); if(!text) return;
+    input.value=''; add('user',text); add('bot','…');
+    try{
+      const r=await fetch('/api/n8n-chat',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({ action:'sendMessage', sessionId, chatInput:text })
+      });
+      const raw=await r.text(); let data=null; try{ data=JSON.parse(raw);}catch(_){}
+      const reply=(data&&(data.output||data?.items?.[0]?.json?.output))||raw||'Kein Text erhalten.';
+      const dots=body.querySelectorAll('.zb-bot .zb-bubble'); 
+      for(let i=dots.length-1;i>=0;i--){ if(dots[i].textContent==='…'){ dots[i].textContent=reply; break; } }
+    }catch(e){
+      const dots=body.querySelectorAll('.zb-bot .zb-bubble'); 
+      for(let i=dots.length-1;i>=0;i--){ if(dots[i].textContent==='…'){ dots[i].textContent='Fehler. Schreiben Sie uns: tim.akihiro@gmail.com'; break; } }
+    }
+  }
+
+  send.onclick=sendMsg;
+  input.addEventListener('keydown',(e)=>{ if(e.key==='Enter') sendMsg(); });
+})();
+</script>
 
   
 <script>"use strict";if("loading"in HTMLImageElement.prototype){document.querySelectorAll('img[loading="lazy"]').forEach(e=>{e.src=e.dataset.src;if(e.getAttribute("style")){e.setAttribute("data-temp-style",e.getAttribute("style"))};if(e.getAttribute("data-aspectratio")){e.style.paddingTop=100*e.getAttribute("data-aspectratio")+"%";e.style.height=0;}e.onload=function(){if(e.getAttribute("data-temp-style")){e.setAttribute("style", e.getAttribute("data-temp-style"))}else{e.removeAttribute("style")};e.removeAttribute("data-temp-style")}})}else{const e=document.createElement("script");e.src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js";document.body.appendChild(e)}</script>
