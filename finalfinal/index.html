@@ -403,7 +403,7 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
       <div class="col-12 col-lg-9">
         <div class="content-wrapper">
           <div class="title-wrapper">
-            <h2 class="mbr-section-title mbr-fonts-style display-2"><strong>Keine Panik oder Hype, sondern ein handfester Plan.</strong></h2>
+            <h2 class="mbr-section-title mbr-fonts-style display-2"><strong>Keine Panik, sondern ein handfester Plan.</strong></h2>
           </div>
 
           <div id="bootstrap-accordion_13" class="panel-group accordionStyles accordion" role="tablist" aria-multiselectable="true">
@@ -429,6 +429,23 @@ section.pricing01.supportm5 .card-footer{margin-top:auto}
 					  Sie erhalten dann einen Bericht mit konkreten Handlungsempfehlungen und entscheiden selber, ob Sie uns mit der Umsetzung beauftragen möchten. <br><br>
 					  Der Vorteil der Zusammenarbeit mit uns: Sie bekommen bei uns ein ganzheitliches System, also Beratung und Umsetzung von Website, SEO / GEO (SEO für KI) sowie Marketing.<br>
 					  Nicht Technik oder Programme, sondern klare Ergebnisse und eine transparente Preisgestaltung<br>
+
+						const chatButton = document.querySelector('button#zb-btn');
+
+const openChatLink = document.createElement('a');
+openChatLink.href = '#'; // Or a relevant URL if needed
+openChatLink.textContent = 'Termin vereinbaren'; // Text for the link
+
+openChatLink.addEventListener('click', (event) => {
+  event.preventDefault(); // Prevent the default link behavior
+  if (chatButton) {
+    chatButton.click(); // Simulate a click on the chat button
+  } else {
+    console.error('Chat button not found.');
+  }
+});
+
+const data = openChatLink.outerHTML;
 
 					</p>
                   </div>
