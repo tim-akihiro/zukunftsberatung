@@ -21,50 +21,41 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-           const fs = require("fs");
-const path = require("path");
+            const fs = require("fs");
+            const path = require("path");
 
-const body = context.payload.issue.body || "";
+            const body = context.payload.issue.body || "";
 
-// Abschnitt unter "### <Label>" holen
-function val(label){
-  const re = new RegExp(`^###\\s+${label.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}\\s*\\n([\\s\\S]*?)(?=\\n^###\\s+|$)`, "im");
-  const m = body.match(re);
-  return m ? m[1].trim() : "";
-}
+            function val(label){
+              const re = new RegExp(`^###\\s+${label.replace(/[.*+?^${}()|[\\]\\\\]/g,"\\$&")}\\s*\\n([\\s\\S]*?)(?=\\n^###\\s+|$)`, "im");
+              const m = body.match(re);
+              return m ? m[1].trim() : "";
+            }
+            function valAny(labels){
+              for (const L of labels){
+                const v = val(L);
+                if (v) return v;
+              }
+              return "";
+            }
+            function valLastSection(){
+              const parts = body.split(/\n(?=###\s+)/);
+              return parts.length ? parts[parts.length-1].replace(/^###\s+[^\n]+\n/i,"").trim() : "";
+            }
 
-// Toleranter Getter: probiert mehrere Labels
-function valAny(labels){
-  for (const L of labels){
-    const v = val(L);
-    if (v) return v;
-  }
-  return "";
-}
+            const title      = valAny(["Titel"]);
+            const slugManual = valAny(["Slug (optional)","Slug"]);
+            const tagsRaw    = valAny(["Tags (Komma-getrennt, klein, ohne Leerzeichen)","Tags"]);
+            const cover      = valAny(["Cover-Bild-URL (optional)","Cover"]);
+            const excerpt    = valAny(["Kurz-Teaser (max. 240 Zeichen)","Kurz-Teaser","Teaser"]);
+            const metaTitle  = valAny(["Meta Title (optional)","Meta Title"]);
+            const metaDesc   = valAny(["Meta Description (optional)","Meta Description"]);
 
-// Fallback: nimm Text nach dem letzten "### ..."
-function valLastSection(){
-  const parts = body.split(/\n(?=###\s+)/);
-  return parts.length ? parts[parts.length-1].replace(/^###\s+[^\n]+\n/i,"").trim() : "";
-}
+            let bodymd = valAny(["Artikel (Markdown)","Artikel","Content","Inhalt"]);
+            if (!bodymd) bodymd = valLastSection();
 
-const title      = valAny(["Titel"]);
-const slugManual = valAny(["Slug (optional)","Slug"]);
-const tagsRaw    = valAny(["Tags (Komma-getrennt, klein, ohne Leerzeichen)","Tags"]);
-const cover      = valAny(["Cover-Bild-URL (optional)","Cover"]);
-const excerpt    = valAny(["Kurz-Teaser (max. 240 Zeichen)","Kurz-Teaser","Teaser"]);
-const metaTitle  = valAny(["Meta Title (optional)","Meta Title"]);
-const metaDesc   = valAny(["Meta Description (optional)","Meta Description"]);
-
-// Wichtig: mehrere Varianten für den Artikel-Block
-let bodymd = valAny(["Artikel (Markdown)","Artikel","Content","Inhalt"]);
-if (!bodymd) bodymd = valLastSection();
-
-if (!title)   core.setFailed("Titel fehlt.");
-if (!bodymd)  core.setFailed("Artikel (Markdown) fehlt.");
-
-// Rest unverändert ...
-
+            if (!title)   core.setFailed("Titel fehlt.");
+            if (!bodymd)  core.setFailed("Artikel (Markdown) fehlt.");
 
             const tags = (tagsRaw || "").split(",").map(s=>s.trim()).filter(Boolean);
 
