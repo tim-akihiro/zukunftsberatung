@@ -1,0 +1,55 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blog — zukunftsberatung.xyz</title>
+</head><body>
+<h1>Blog</h1>
+<div id="tagbar"></div>
+<div id="list"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+const repo="tim-akihiro/zukunftsberatung";
+const path="finalfinal/Blog/posts";
+const params=new URLSearchParams(location.search);
+const activeTag=(params.get("tag")||"").toLowerCase();
+
+async function load(){
+  const res=await fetch(`https://api.github.com/repos/${repo}/contents/${path}`);
+  const files=(await res.json()).filter(f=>f.name.endsWith(".md"));
+  // lade Frontmatter leichtgewichtig
+  const posts=[];
+  for(const f of files){
+    const raw=`https://raw.githubusercontent.com/${repo}/main/${path}/${f.name}`;
+    const md=await fetch(raw).then(r=>r.text());
+    const fmMatch=md.match(/^---\n([\s\S]*?)\n---/);
+    const fm=fmMatch?Object.fromEntries(fmMatch[1].split('\n').filter(Boolean).map(l=>{const i=l.indexOf(':');return [l.slice(0,i).trim(),l.slice(i+1).trim()]})):{};
+    const date=(fm.date||f.name.slice(0,10));
+    const title=fm.title||f.name.replace(/^\d{4}-\d{2}-\d{2}-/,'').replace(/-/g,' ').replace(/\.md$/,'');
+    const tags=(fm.tags||"").toLowerCase().replace(/[\[\]]/g,'').split(/[, ]+/).filter(Boolean);
+    const excerpt=fm.excerpt||"";
+    const cover=fm.cover||"";
+    const slug=f.name.replace(/\.md$/,'');
+    posts.push({date,title,tags,excerpt,cover,slug});
+  }
+  posts.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  // Tagbar
+  const allTags=[...new Set(posts.flatMap(p=>p.tags))].sort();
+  document.getElementById('tagbar').innerHTML = ['alle',...allTags].map(t=>{
+    const q=t==='alle'?'':`?tag=${encodeURIComponent(t)}`;
+    const sel=(t===activeTag)||(!activeTag&&t==='alle');
+    return `<a href="/finalfinal/Blog/${q}" style="margin-right:.5rem;${sel?'font-weight:bold':''}">#${t}</a>`;
+  }).join('');
+  // Filter
+  const filtered=activeTag?posts.filter(p=>p.tags.includes(activeTag)):posts;
+  document.getElementById('list').innerHTML=filtered.map(p=>`
+    <article style="margin:1rem 0;padding:1rem;border:1px solid #ddd">
+      ${p.cover?`<img src="${p.cover}" alt="" style="max-width:100%;height:auto">`:''}
+      <h2><a href="/finalfinal/Blog/post.html?slug=${encodeURIComponent(p.slug)}">${p.title}</a></h2>
+      <p><time datetime="${p.date}">${p.date}</time>${p.tags.length?` • ${p.tags.map(t=>`#${t}`).join(' ')}`:''}</p>
+      ${p.excerpt?`<p>${p.excerpt}</p>`:''}
+      <a href="/finalfinal/Blog/post.html?slug=${encodeURIComponent(p.slug)}">Lesen</a>
+    </article>`).join('');
+}
+load();
+</script>
+</body></html>
