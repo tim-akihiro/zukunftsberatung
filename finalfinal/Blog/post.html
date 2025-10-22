@@ -1,0 +1,31 @@
+<!doctype html><html lang="de"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Blogpost</title>
+</head><body>
+<article id="post">Lade…</article>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+const repo="tim-akihiro/zukunftsberatung";
+const path="finalfinal/Blog/posts";
+const slug=new URLSearchParams(location.search).get("slug");
+if(!slug){ document.getElementById('post').textContent="Kein Post gefunden."; throw new Error("no slug"); }
+const raw=`https://raw.githubusercontent.com/${repo}/main/${path}/${slug}.md`;
+
+function parseFM(md){const m=md.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/); if(!m) return [{}, md];
+  const fm=Object.fromEntries(m[1].split("\n").filter(Boolean).map(l=>{const i=l.indexOf(":");return [l.slice(0,i).trim(),l.slice(i+1).trim()]}));
+  return [fm,m[2]];
+}
+fetch(raw).then(r=>r.ok?r.text():Promise.reject("404")).then(md=>{
+  const [fm,body]=parseFM(md);
+  if(fm.metaTitle) document.title=fm.metaTitle;
+  const headMeta=(name,content)=>content?`<meta name="${name}" content="${content}">`:"";
+  document.getElementById('post').innerHTML = `
+    ${fm.cover?`<img src="${fm.cover}" alt="" style="max-width:100%;height:auto">`:''}
+    <h1>${fm.title||slug}</h1>
+    <p><time datetime="${fm.date||''}">${fm.date||''}</time>${fm.tags?` • ${fm.tags}`:''}</p>
+    ${marked.parse(body)}
+  `;
+}).catch(()=>{document.getElementById('post').textContent="Post nicht gefunden."});
+</script>
+</body></html>
