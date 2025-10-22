@@ -1,7 +1,9 @@
 name: Build Blogpost from Issue
+
 on:
   issues:
     types: [opened, edited, labeled]
+
 permissions:
   contents: write
   issues: write
@@ -11,87 +13,97 @@ jobs:
     if: contains(github.event.issue.labels.*.name, 'blogpost')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Parse Issue + Write Post
+      - name: Parse Issue and write Markdown
         id: gen
         uses: actions/github-script@v7
         with:
           script: |
-            const core = require("@actions/core");
             const fs = require("fs");
             const path = require("path");
 
             const body = context.payload.issue.body || "";
-            function val(id){ // GitHub Issue Forms: "### <Label>\n<value>"
-              const re = new RegExp(`###\\s+${id}[\\s\\S]*?\\n([\\s\\S]*?)(?:\\n###|$)`, "i");
+
+            // Wert unter "### <Label>" extrahieren (Issue Forms)
+            function val(label){
+              const re = new RegExp(`###\\s+${label.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")}\\s*\\n([\\s\\S]*?)(?:\\n###|$)`, "i");
               const m = body.match(re);
               return m ? m[1].trim() : "";
             }
 
-            const title = val("Titel");
-            if(!title) core.setFailed("Titel fehlt");
-            const slugManual = val("Slug (optional)");
-            const tags = val("Tags (Komma-getrennt, klein, ohne Leerzeichen)").split(",").map(s=>s.trim()).filter(Boolean);
-            const cover = val("Cover-Bild-URL (optional)");
-            const excerpt = val("Kurz-Teaser (max. 240 Zeichen)");
-            const metaTitle = val("Meta Title (optional)");
-            const metaDesc = val("Meta Description (optional)");
-            const bodymd = val("Artikel (Markdown)");
-            if(!bodymd) core.setFailed("Artikel-Inhalt fehlt");
+            const title      = val("Titel");
+            const slugManual = val("Slug \\(optional\\)");
+            const tagsRaw    = val("Tags \\(Komma-getrennt, klein, ohne Leerzeichen\\)");
+            const cover      = val("Cover-Bild-URL \\(optional\\)");
+            const excerpt    = val("Kurz-Teaser \\(max\\. 240 Zeichen\\)");
+            const metaTitle  = val("Meta Title \\(optional\\)");
+            const metaDesc   = val("Meta Description \\(optional\\)");
+            const bodymd     = val("Artikel \\(Markdown\\)");
+
+            if (!title)  core.setFailed("Titel fehlt.");
+            if (!bodymd) core.setFailed("Artikel (Markdown) fehlt.");
+
+            const tags = (tagsRaw || "").split(",").map(s=>s.trim()).filter(Boolean);
 
             function slugify(s){
               return s.toLowerCase()
                 .normalize("NFKD").replace(/[\u0300-\u036f]/g,"")
                 .replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,80);
             }
+
             const created = new Date(context.payload.issue.created_at);
-            const yyyy = created.getUTCFullYear();
-            const mm = String(created.getUTCMonth()+1).padStart(2,'0');
-            const dd = String(created.getUTCDate()).padStart(2,'0');
-            const date = `${yyyy}-${mm}-${dd}`;
+            const y = created.getUTCFullYear();
+            const m = String(created.getUTCMonth()+1).padStart(2,'0');
+            const d = String(created.getUTCDate()).padStart(2,'0');
+            const date = `${y}-${m}-${d}`;
+
             const slug = slugManual ? slugify(slugManual) : slugify(title);
             const fileName = `${date}-${slug}.md`;
             const repoPath = "finalfinal/blog/posts";
             const fullPath = path.join(process.cwd(), repoPath, fileName);
 
-            const fm = [
-              "---",
-              `title: ${JSON.stringify(title)}`,
-              `date: ${date}`,
-              tags.length ? `tags: [${tags.join(", ")}]` : `tags: []`,
-              cover ? `cover: ${JSON.stringify(cover)}` : ``,
-              excerpt ? `excerpt: ${JSON.stringify(excerpt)}` : ``,
-              metaTitle ? `metaTitle: ${JSON.stringify(metaTitle)}` : ``,
-              metaDescription ? `metaDescription: ${JSON.stringify(metaDesc)}` : ``,
-              "---",
-              ""
-            ].filter(Boolean).join("\n");
+            const lines = ["---"];
+            lines.push(`title: ${JSON.stringify(title)}`);
+            lines.push(`date: ${date}`);
+            lines.push(`tags: [${tags.join(", ")}]`);
+            if (cover)     lines.push(`cover: ${JSON.stringify(cover)}`);
+            if (excerpt)   lines.push(`excerpt: ${JSON.stringify(excerpt)}`);
+            if (metaTitle) lines.push(`metaTitle: ${JSON.stringify(metaTitle)}`);
+            if (metaDesc)  lines.push(`metaDescription: ${JSON.stringify(metaDesc)}`);
+            lines.push("---", "", bodymd.trim(), "");
 
             fs.mkdirSync(path.join(process.cwd(), repoPath), { recursive: true });
-            fs.writeFileSync(fullPath, fm + bodymd + "\n");
+            fs.writeFileSync(fullPath, lines.join("\n"));
 
             core.setOutput("file", `${repoPath}/${fileName}`);
-            core.setOutput("date", date);
             core.setOutput("slug", slug);
+            core.setOutput("date", date);
 
-      - name: Commit
+      - name: Commit and push
         run: |
-          git config user.name "github-actions[bot]"
+          git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add finalfinal/blog/posts/*.md
-          git commit -m "blog: add post ${{ steps.gen.outputs.file }}" || echo "nichts zu committen"
+          git commit -m "blog: add ${{ steps.gen.outputs.file }}" || echo "no changes"
           git push
 
-      - name: Comment with link
+      - name: Comment with link and close
         uses: actions/github-script@v7
         with:
           script: |
-            const file = core.getInput('file') || "${{ steps.gen.outputs.file }}";
-            const url = `https://github.com/${context.repo.owner}/${context.repo.repo}/blob/${process.env.GITHUB_REF_NAME || 'main'}/${file}`;
+            const file = `${{ toJSON(steps.gen.outputs.file) }}`;
+            const url  = `https://github.com/${context.repo.owner}/${context.repo.repo}/blob/main/${file}`;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
               body: `Erstellt: ${url}`
+            });
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              state: "closed"
             });
