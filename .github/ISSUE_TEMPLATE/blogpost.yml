@@ -4,30 +4,50 @@ labels: ["blogpost"]
 body:
   - type: input
     id: title
-    attributes: { label: Titel, placeholder: Warum digitale Präsenz zählt }
-    validations: { required: true }
+    attributes:
+      label: "Titel"
+      placeholder: "Warum digitale Präsenz zählt"
+    validations:
+      required: true
+
   - type: input
     id: slug
-    attributes: { label: Slug (optional), placeholder: warum-digitale-praesenz-zaehlt }
+    attributes:
+      label: "Slug (optional)"
+      placeholder: "warum-digitale-praesenz-zaehlt"
+
   - type: input
     id: tags
-    attributes: { label: Tags (Komma-getrennt, klein, ohne Leerzeichen), placeholder: seo,website }
+    attributes:
+      label: "Tags (Komma-getrennt, klein, ohne Leerzeichen)"
+      placeholder: "seo,website"
+
   - type: input
     id: cover
     attributes:
-      label: Cover-Bild-URL (optional)
-      placeholder: https://user-images.githubusercontent.com/.../bild.png
-      description: Bilder ins Issue ziehen, dann URL hier einfügen.
+      label: "Cover-Bild-URL (optional)"
+      placeholder: "https://user-images.githubusercontent.com/.../bild.png"
+      description: "Bilder ins Issue ziehen, dann URL hier einfügen."
+
   - type: input
     id: excerpt
-    attributes: { label: Kurz-Teaser (max. 240 Zeichen) }
+    attributes:
+      label: "Kurz-Teaser (max. 240 Zeichen)"
+
   - type: input
     id: metatitle
-    attributes: { label: Meta Title (optional) }
+    attributes:
+      label: "Meta Title (optional)"
+
   - type: input
     id: metadesc
-    attributes: { label: Meta Description (optional) }
+    attributes:
+      label: "Meta Description (optional)"
+
   - type: textarea
     id: bodymd
-    attributes: { label: Artikel (Markdown), render: markdown }
-    validations: { required: true }
+    attributes:
+      label: "Artikel (Markdown)"
+      render: markdown
+    validations:
+      required: true
