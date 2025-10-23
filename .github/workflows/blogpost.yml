@@ -52,10 +52,13 @@ jobs:
             const metaDesc   = valAny(["Meta Description (optional)","Meta Description"]);
 
             let bodymd = valAny(["Artikel (Markdown)","Artikel","Content","Inhalt"]);
-            if (!bodymd) bodymd = valLastSection();
+            if (!bodymd) bodymd = valLastSection();              // Fallback: letzter Abschnitt
+            bodymd = bodymd.replace(/^```[a-z]*\n?/i,'')         // evtl. Codezaun entfernen
+                           .replace(/\n```$/,'')
+                           .trim();
+            if (!title)  core.setFailed("Titel fehlt.");
+            if (!bodymd) core.setFailed("Artikel (Markdown) fehlt.");
 
-            if (!title)   core.setFailed("Titel fehlt.");
-            if (!bodymd)  core.setFailed("Artikel (Markdown) fehlt.");
 
             const tags = (tagsRaw || "").split(",").map(s=>s.trim()).filter(Boolean);
 
