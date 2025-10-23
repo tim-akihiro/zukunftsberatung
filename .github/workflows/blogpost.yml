@@ -74,7 +74,7 @@ jobs:
 
             const slug = slugManual ? slugify(slugManual) : slugify(title);
             const fileName = `${date}-${slug}.md`;
-            const repoPath = "blog/posts";                          // <— ohne "finalfinal"
+            const repoPath = "finalfinal/blog/posts";               // <— Zielpfad angepasst
             const fullPath = path.join(process.cwd(), repoPath, fileName);
 
             const lines = ["---"];
@@ -102,7 +102,7 @@ jobs:
             <title>${metaTitle ? metaTitle : title} — Blog</title>
             <meta name="description" content=${JSON.stringify(metaDesc || excerpt || "")}>
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="canonical" href="https://zukunftsberatung.xyz/blog/posts/${fileName.replace(/\\.md$/, ".html")}">
+            <link rel="canonical" href="https://zukunftsberatung.xyz/blog/${fileName.replace(/\.md$/, ".html")}">
             <meta property="og:title" content=${JSON.stringify(metaTitle || title)}>
             <meta property="og:description" content=${JSON.stringify(metaDesc || excerpt || "")}>
             ${cover ? `<meta property="og:image" content=${JSON.stringify(cover)}>` : ""}
@@ -139,13 +139,14 @@ jobs:
 
       - name: Commit and push blog files
         run: |
-          mkdir -p blog/posts
-           git config user.name  "github-actions[bot]"
-           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-           git add blog/posts || true
-           git commit -m "blog: add ${{ steps.gen.outputs.file }}" || echo "no changes"
-           git push
-
+          mkdir -p finalfinal/blog/posts
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git fetch origin
+          git pull --rebase origin "${{ github.ref_name }}"
+          git add finalfinal/blog/posts || true
+          git commit -m "blog: add ${{ steps.gen.outputs.file }}" || echo "no changes"
+          git push
 
       - name: Comment with links and close
         uses: actions/github-script@v7
@@ -155,7 +156,7 @@ jobs:
             const html = `${{ toJSON(steps.gen.outputs.html) }}`;
             const repo = `${context.repo.owner}/${context.repo.repo}`;
             const urlMd  = `https://github.com/${repo}/blob/main/${file}`;
-            const live   = `https://zukunftsberatung.xyz/blog/posts/${html.split("/").pop()}`;
+            const live   = `https://zukunftsberatung.xyz/blog/${html.split("/").pop()}`;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -167,4 +168,4 @@ jobs:
               repo: context.repo.repo,
               issue_number: context.issue.number,
               state: "closed"
-            });
+            })
