@@ -2,7 +2,7 @@ name: Build Blogpost from Issue
 
 on:
   issues:
-    types: [opened, edited, labeled]
+    types: [opened, edited, labeled, reopened]
 
 permissions:
   contents: write
