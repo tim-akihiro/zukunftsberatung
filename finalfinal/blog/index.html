@@ -1,0 +1,94 @@
+<!doctype html><html lang="de">
+<head>
+<meta charset="utf-8">
+<title>Blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css">
+<style>
+  .post-card{border:1px solid #ddd;border-radius:12px;overflow:hidden;margin-bottom:16px}
+  .post-card img{width:100%;height:auto;display:block}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+  .chip{padding:.3rem .6rem;border:1px solid #ccc;border-radius:999px;cursor:pointer}
+  .chip.active{background:#111;color:#fff;border-color:#111}
+</style>
+</head>
+<body>
+<section class="mbr-section" id="blog-list">
+  <div class="container">
+    <h1 class="mbr-section-title mbr-fonts-style display-2"><strong>Blog</strong></h1>
+    <div id="tagbar" class="chips"></div>
+    <div id="posts" class="row"></div>
+  </div>
+</section>
+
+<script>
+const repo = "tim-akihiro/zukunftsberatung";
+const dir  = "blog/posts";
+const api  = `https://api.github.com/repos/${repo}/contents/${dir}`;
+const $ = sel => document.querySelector(sel);
+
+function getParam(name){return new URLSearchParams(location.search).get(name)}
+
+function render(posts, activeTag){
+  const wrap = $("#posts");
+  wrap.innerHTML = posts
+   .filter(p=>!activeTag || p.tags.includes(activeTag))
+   .map(p=>`
+    <div class="col-12 col-md-6 col-lg-4">
+      <article class="post-card">
+        ${p.cover?`<img src="${p.cover}" alt="${p.title}">`:``}
+        <div class="card-body" style="padding:12px 14px">
+          <h3 class="card-title mbr-fonts-style display-5">
+            <a href="/blog/posts/${p.name}">${p.title}</a>
+          </h3>
+          <p class="mbr-text mbr-fonts-style display-7">
+            <time datetime="${p.date}">${p.date}</time>
+          </p>
+          ${p.excerpt?`<p class="mbr-text mbr-fonts-style display-7">${p.excerpt}</p>`:""}
+          ${p.tags.length?`<p class="mbr-text mbr-fonts-style display-7">${p.tags.map(t=>`#${t}`).join(" ")}</p>`:""}
+        </div>
+      </article>
+    </div>`).join("") || `<p>Keine Beiträge.</p>`;
+}
+
+function renderTags(allTags, activeTag){
+  const bar = $("#tagbar");
+  const tags = Array.from(new Set(allTags)).sort();
+  bar.innerHTML = [`<button class="chip ${!activeTag?'active':''}" data-tag="">Alle</button>`]
+    .concat(tags.map(t=>`<button class="chip ${activeTag===t?'active':''}" data-tag="${t}">${t}</button>`)).join("");
+  bar.onclick = (e)=>{
+    const btn = e.target.closest(".chip"); if(!btn) return;
+    const tag = btn.dataset.tag;
+    const u = new URL(location.href); if(tag) u.searchParams.set("tag", tag); else u.searchParams.delete("tag");
+    history.replaceState(null,"",u.toString());
+    render(window.__posts, tag||null); renderTags(tags, tag||null);
+  };
+}
+
+(async function(){
+  const res = await fetch(api);
+  const files = (await res.json()).filter(f=>f.name.endsWith(".html"))
+    .sort((a,b)=> a.name<b.name ? 1 : -1); // Datum vorn im Namen
+
+  const posts = [];
+  const allTags = [];
+  for (const f of files){
+    const url = `/blog/posts/${f.name}`;
+    const txt = await fetch(url).then(r=>r.text());
+    const title = (txt.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i)||[])[1]?.trim() || f.name.replace(/^\d{4}-\d{2}-\d{2}-/,'').replace(/\.html$/,'').replace(/-/g,' ');
+    const date  = f.name.slice(0,10);
+    const desc  = (txt.match(/<meta name="description" content="([^"]*)"/i)||[])[1] || "";
+    const cover = (txt.match(/<meta property="og:image" content="([^"]+)"/i)||[])[1] || "";
+    let tags = [];
+    const ld = (txt.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/i)||[])[1];
+    if(ld){ try{ const obj = JSON.parse(ld); if(obj.keywords) tags = String(obj.keywords).split(",").map(s=>s.trim()).filter(Boolean);}catch(e){} }
+    allTags.push(...tags);
+    posts.push({name:f.name, url, title, date, excerpt:desc, cover, tags});
+  }
+  window.__posts = posts;
+  const activeTag = getParam("tag");
+  render(posts, activeTag);
+  renderTags(allTags, activeTag);
+})();
+</script>
+</body></html>
