@@ -73,8 +73,8 @@ jobs:
             const date = `${y}-${m}-${d}`;
 
             const slug = slugManual ? slugify(slugManual) : slugify(title);
-            const fileName = `${date}-${slug}.md`;
-            const repoPath = "blog/posts";                          // <— ohne "finalfinal"
+            const fileName = `${date}-${slug}.html`;
+            const repoPath = "finalfinal/blog/posts";
             const fullPath = path.join(process.cwd(), repoPath, fileName);
 
             const lines = ["---"];
@@ -88,7 +88,7 @@ jobs:
             lines.push("---", "", bodymd, "");
 
             fs.mkdirSync(path.join(process.cwd(), repoPath), { recursive: true });
-            fs.writeFileSync(fullPath, lines.join("\n"));
+
 
             // Markdown -> HTML via GitHub API
             const rendered = await github.rest.markdown.render({
@@ -102,7 +102,7 @@ jobs:
             <title>${metaTitle ? metaTitle : title} — Blog</title>
             <meta name="description" content=${JSON.stringify(metaDesc || excerpt || "")}>
             <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="canonical" href="https://zukunftsberatung.xyz/blog/posts/${fileName.replace(/\\.md$/, ".html")}">
+            <link rel="canonical" href="https://zukunftsberatung.xyz/blog/posts/${fileName}">
             <meta property="og:title" content=${JSON.stringify(metaTitle || title)}>
             <meta property="og:description" content=${JSON.stringify(metaDesc || excerpt || "")}>
             ${cover ? `<meta property="og:image" content=${JSON.stringify(cover)}>` : ""}
@@ -128,21 +128,21 @@ jobs:
               ${rendered.data}
               </main>
             </body></html>`;
-
-            const htmlPath = fullPath.replace(/\\.md$/, ".html");
+            
+            const htmlPath = fullPath; // already .html
             fs.writeFileSync(htmlPath, html);
 
             core.setOutput("file", `${repoPath}/${fileName}`);
-            core.setOutput("html", `${repoPath}/${fileName.replace(/\\.md$/, ".html")}`);
+            core.setOutput("html", `${repoPath}/${fileName}`);
             core.setOutput("slug", slug);
             core.setOutput("date", date);
 
       - name: Commit and push blog files
         run: |
-          mkdir -p blog/posts
+          mkdir -p finalfinal/blog/posts
            git config user.name  "github-actions[bot]"
            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-           git add blog/posts || true
+           git add finalfinal/blog/posts || true
            git commit -m "blog: add ${{ steps.gen.outputs.file }}" || echo "no changes"
            git push
 
