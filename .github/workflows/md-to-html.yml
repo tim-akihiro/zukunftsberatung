@@ -5,6 +5,10 @@ on:
     paths:
       - '**/blog/posts/*.md'
   workflow_dispatch:
+  workflow_run:
+    workflows: [blogpost.yml]  # exakt wie in Actions angezeigt
+    types: [completed]
+
 
 permissions:
   contents: write
