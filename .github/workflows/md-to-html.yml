@@ -49,10 +49,10 @@ jobs:
         if: steps.diff.outputs.count != '0'
         shell: bash
         run: |
-          mkdir -p finalfinal/public/blog/posts
+          mkdir -p finalfinal/blog/posts
           while IFS= read -r -d '' file; do
             base="$(basename "$file" .md)"
-            out="finalfinal/public/blog/posts/${base}.html"
+            out="finalfinal/blog/posts/${base}.html"
             pandoc "$file" -f markdown -t html5 -s -o "$out"
             echo "Generated $out"
           done < md-files.txt
@@ -60,6 +60,6 @@ jobs:
       - name: Commit and push HTML
         if: steps.diff.outputs.count != '0'
         run: |
-          git add finalfinal/public/blog/posts/*.html
+          git add finalfinal/blog/posts/*.html
           git commit -m "blog: publish HTML from MD"
           git push origin HEAD
