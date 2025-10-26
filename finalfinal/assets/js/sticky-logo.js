@@ -1,5 +1,3 @@
-<script>
-// /assets/js/sticky-logo.js
 (function () {
   const BP = 991.98; // Bootstrap md/lg Breakpoint
 
@@ -49,4 +47,4 @@
     if (window.innerWidth > BP) mount(); else remove();
   });
 })();
-</script>
+
