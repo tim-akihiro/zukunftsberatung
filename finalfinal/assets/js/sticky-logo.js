@@ -11,7 +11,7 @@
     style.id = 'zb-fixed-logo-style';
     style.textContent = `
       #zb-fixed-logo{position:fixed;top:12px;right:12px;z-index:1100;display:block}
-      #zb-fixed-logo img{width:192px;height:192px}
+      #zb-fixed-logo img{width:192px;height:100px}
       @media (max-width:${BP}px){ #zb-fixed-logo{display:none} }
     `;
     document.head.appendChild(style);
@@ -24,7 +24,7 @@
 
     const img = document.createElement('img');
     img.alt = 'Zukunftsberatung';
-    img.width = 192; img.height = 192;
+    img.width = 192; img.height = 100;
     // Bild NUR auf Desktop laden
     img.src = '/menu.png';
 
