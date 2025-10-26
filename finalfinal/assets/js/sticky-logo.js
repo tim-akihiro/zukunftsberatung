@@ -28,7 +28,7 @@
     img.alt = 'Zukunftsberatung';
     img.width = 192; img.height = 192;
     // Bild NUR auf Desktop laden
-    img.src = '/android-chrome-192x192.png';
+    img.src = '/menu.png';
 
     a.appendChild(img);
     document.body.appendChild(a);
