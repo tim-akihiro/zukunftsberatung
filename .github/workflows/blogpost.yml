@@ -107,6 +107,7 @@ jobs:
             <meta name="keywords" content=${JSON.stringify(tags.join(", "))}>
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="canonical" href="https://zukunftsberatung.xyz/blog/posts/${fileName}">
+            <meta property="og:url" content=${JSON.stringify(url)}>
             <meta property="og:title" content=${JSON.stringify(metaTitle || title)}>
             <meta property="og:description" content=${JSON.stringify(metaDesc || excerpt || "")}>
             ${cover ? `<meta property="og:image" content=${JSON.stringify(cover)}>` : ""}
