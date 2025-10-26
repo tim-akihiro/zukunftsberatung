@@ -10,7 +10,7 @@
     const style = document.createElement('style');
     style.id = 'zb-fixed-logo-style';
     style.textContent = `
-      #zb-fixed-logo{position:fixed;top:12px;right:12px;z-index:1100;display:block}
+      #zb-fixed-logo{position:fixed;top:5px;right:12px;z-index:1100;display:block}
       #zb-fixed-logo img{width:92px;height:92px}
       @media (max-width:${BP}px){ #zb-fixed-logo{display:none} }
     `;
