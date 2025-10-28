@@ -58,6 +58,8 @@ jobs:
             const excerpt    = valAny(["Kurz-Teaser (max. 240 Zeichen)","Kurz-Teaser","Teaser"]);
             const metaTitle  = valAny(["Meta Title (optional)","Meta Title"]);
             const metaDesc   = valAny(["Meta Description (optional)","Meta Description"]);
+            const metaDescription = clean(metaDesc) || excerpt || "";
+
 
             let bodymd = valAny(["Artikel (Markdown)","Artikel","Content","Inhalt"]);
             if (!bodymd) bodymd = valLastSection();
@@ -67,6 +69,9 @@ jobs:
             if (!bodymd) core.setFailed("Artikel (Markdown) fehlt.");
 
             const tags = clean(tagsRaw).split(",").map(s=>s.trim()).filter(Boolean);
+            core.info("META desc=" + (metaDescription || "(empty)"));
+            core.info("TAGS=" + JSON.stringify(tags));
+
 
             function slugify(s){
               return s.toLowerCase()
@@ -108,13 +113,13 @@ jobs:
             <head>
             <meta charset="utf-8">
             <title>${metaTitle ? metaTitle : title} — Blog</title>
-            <meta name="description" content=${JSON.stringify(clean(metaDesc) || excerpt || "")}>
+            <meta name="description" content=${JSON.stringify(metaDescription)}>
             <meta name="keywords" content=${JSON.stringify(tags.join(", "))}>
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="canonical" href="https://zukunftsberatung.xyz/blog/posts/${fileName}">
             <meta property="og:url" content=${JSON.stringify(url)}>
             <meta property="og:title" content=${JSON.stringify(metaTitle || title)}>
-            <meta property="og:description" content=${JSON.stringify(metaDesc || excerpt || "")}>
+            <meta property="og:description" content=${JSON.stringify(metaDescription)}>
             ${cover ? `<meta property="og:image" content=${JSON.stringify(cover)}>` : ""}
             <meta property="og:type" content="article">
             <meta property="article:published_time" content="${date}">
@@ -123,7 +128,7 @@ jobs:
                 "@context":"https://schema.org",
                 "@type":"BlogPosting",
                 "headline": metaTitle || title,
-                "description": clean(metaDesc) || excerpt || "",
+                "description": metaDescription,
                 "inLanguage": "de",
                 "url": url,
                 "mainEntityOfPage": {"@type":"WebPage","@id": url},
