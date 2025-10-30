@@ -71,6 +71,26 @@
 /* Grün markierte Stellen schwarz */
 .brand, .brand strong { color: #000 !important; }
 .badge { color: #000 !important; }
+    
+/* Subline wie H1 (weiß) */
+p.lead { color: #fff !important; }
+p.lead strong { color: #fff !important; }
+
+/* Formularfelder in Dunkelblau wie außen */
+input[type="email"],
+input[type="url"]{
+  background:#3f5683 !important;   /* dunkler als #5571ad */
+  border:1px solid #2e446a !important;
+  color:#fff !important;
+}
+input[type="email"]::placeholder,
+input[type="url"]::placeholder { color: rgba(255,255,255,.85); }
+input[type="email"]:focus,
+input[type="url"]:focus{
+  outline:2px solid #A78AFF;
+  outline-offset:2px;
+  border-color:#A78AFF;
+}
 
   </style>
 </head>
