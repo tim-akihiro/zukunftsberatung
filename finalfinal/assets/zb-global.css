@@ -117,3 +117,23 @@ section#features06-3d .display-5{
   font-family: 'Socicon' !important;
 }
 
+/* Phone-only: iPhone & Co., Tablets ausgeschlossen */
+@media (max-width: 575.98px) {
+  /* Beispiele für Box/Card/Typo – passe Klassen an dein Projekt an */
+  .item, .card, .features-without-image .item-wrapper {
+    padding: 14px !important;
+    border-radius: 14px !important;
+  }
+  .item .display-2 { font-size: 2rem !important; }
+  .item .display-5 { font-size: 1.25rem !important; }
+  .item .display-7 { font-size: .95rem !important; }
+
+  /* Grid auf volle Breite */
+  .col-12, .container, .container-fluid {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Navigation/Buttons wenn nötig kompakter */
+  .btn { padding: 10px 14px; font-size: .95rem; }
+}
