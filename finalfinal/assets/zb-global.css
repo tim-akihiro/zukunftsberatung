@@ -116,4 +116,27 @@ section#features06-3d .display-5{
 [class*=" socicon-"] {
   font-family: 'Socicon' !important;
 }
+/* Reviews-Slider: ursprüngliches Overlay wiederherstellen */
+.embla .features-without-image .item-wrapper { position: relative; }
+
+/* Zitat-Box oben, links/rechts bündig */
+.embla .features-without-image .item-content {
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  right: 24px;
+  margin: 0;
+  z-index: 2;
+}
+
+/* Platz unter der Zitat-Box schaffen, damit Name/Position unten stehen */
+.embla .features-without-image .card-box {
+  padding-top: 140px; /* bei mehr Text auf 160–180px erhöhen */
+  position: relative;
+  z-index: 1;
+}
+
+/* verhindert, dass andere Styles die Position wieder überschreiben */
+.embla .features-without-image .item-content,
+.embla .features-without-image .card-box { transform: none; }
 
