@@ -59,7 +59,7 @@
       <h1>Kostenloser Webseiten-Check</h1>
       <p class="lead">Kurz-Analyse zu <strong>Sicherheit</strong>, <strong>SEO</strong> und <strong>Geschwindigkeit</strong>. Ergebnis kommt per E-Mail.</p>
       <div class="grid">
-        <form class="card" action="https://n8n.zukunftsberatung.xyz/form/0bb7eedc-a793-4bf4-bea3-00204b286ad1" method="post" novalidate>
+        <form class="card" action="https://n8n.zukunftsberatung.xyz/form/0bb7eedc-a793-4bf4-bea3-00204b286ad1" method="post">
           <!-- Honeypot -->
           <div style="position:absolute;left:-9999px">
             <label for="company">Firma</label>
@@ -77,13 +77,24 @@
 
           <button type="submit">Check starten</button>
           <div class="row">
-            <small class="consent">Kein Spam. <a href="/datenschutz.html">Datenschutz</a></small>
+            <small class="consent"><a href="/datenschutz.html">Datenschutz</a></small>
             <small class="consent"><a href="/impressum.html">Impressum</a></small>
           </div>
+          <script>
+          const f = document.querySelector('form');
+          f.addEventListener('submit', (e) => {
+            if (f.querySelector('input[name="company"]').value.trim()) { e.preventDefault(); return; } // Bot
+            if (!f.checkValidity()) return; // HTML5-Prüfung inkl. consent
+          const btn = f.querySelector('button'); btn.disabled = true; btn.textContent = 'Sende…';
+          // Fallback: Button nach 8s wieder freigeben, falls kein Redirect kommt
+        setTimeout(()=>{ btn.disabled=false; btn.textContent='Check starten'; }, 8000);
+  });
+</script>
+
         </form>
 
         <aside class="card">
-          <h3 style="margin:0 0 8px">Was wir prüfen</h3>
+          <h3 style="margin:0 0 8px">Was wird analysiert?</h3>
           <ul style="margin:0 0 14px 18px">
             <li>Sicherheit</li>
             <li>Geschwindigkeit</li>
