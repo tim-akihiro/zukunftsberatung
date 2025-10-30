@@ -21,7 +21,7 @@
     :root{--bg:#0b0d10;--card:#12161b;--txt:#e9eef5;--muted:#9aa6b2;--line:#1f2933;--accent:#1a73e8;--accent-fg:#fff}
     *{box-sizing:border-box}
     html,body{margin:0;height:100%}
-    body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter;color:var(--txt);#f8f9fa !important;}
+    body{font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter;color:var(--txt); background:#f8f9fa !important;}
     .wrap{max-width:880px;margin:0 auto;padding:28px}
     header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
     .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--txt)}
@@ -108,7 +108,10 @@ input[type="url"]:focus{
       <h1>Kostenloser Webseiten-Check</h1>
       <p class="lead">Analyse der <strong>Sicherheit</strong>, <strong>SEO</strong> und <strong>Geschwindigkeit</strong>. Ergebnis per E-Mail.</p>
       <div class="grid">
-        <form class="card" action="https://n8n.zukunftsberatung.xyz/webhook/webhook/webseiten-check" method="post">
+        
+        <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
+
+        <form class="card" action="https://n8n.zukunftsberatung.xyz/webhook/webhook/webseiten-check" method="post" target="hidden_iframe">
           <!-- Honeypot -->
           <div style="position:absolute;left:-9999px">
             <label for="company">Firma</label>
@@ -118,26 +121,13 @@ input[type="url"]:focus{
           <label for="email">E-Mail</label>
           <input id="email" name="email" type="email" autocomplete="email" required inputmode="email" placeholder="name@gmx.de" aria-describedby="emailHelp">
           <label for="url">Domain</label>
-          <input id="url" name="url" type="url" autocomplete="url" required placeholder="https://beispiel.de" pattern="https?://.+">
+          <input id="url" name="url" type="url" autocomplete="url" required placeholder="https://www.beispiel.de" pattern="https?://.+">
 
           <label class="consent">
             <input type="checkbox" name="consent" required> Ich stimme der Datenverarbeitung zu.
           </label>
 
           <button type="submit">Check starten</button>
-
-          
-          <script>
-          const f = document.querySelector('form');
-          f.addEventListener('submit', (e) => {
-            if (f.querySelector('input[name="company"]').value.trim()) { e.preventDefault(); return; } // Bot
-            if (!f.checkValidity()) return; // HTML5-Prüfung inkl. consent
-          const btn = f.querySelector('button'); btn.disabled = true; btn.textContent = 'Sende…';
-          // Fallback: Button nach 8s wieder freigeben, falls kein Redirect kommt
-        setTimeout(()=>{ btn.disabled=false; btn.textContent='Check starten'; }, 8000);
-  });
-</script>
-
         </form>
 
         <aside class="card">
@@ -161,13 +151,32 @@ input[type="url"]:focus{
     </footer>
   </div>
 
-  <script>
+<script>
+  (function () {
     const f = document.querySelector('form');
+    const btn = f.querySelector('button');
+
     f.addEventListener('submit', (e) => {
-      const hp = f.querySelector('input[name="company"]').value.trim();
-      if (hp) { e.preventDefault(); return; } // Bot
-      const btn = f.querySelector('button'); btn.disabled = true; btn.textContent = 'Sende…';
+      // Honeypot
+      if (f.querySelector('input[name="company"]').value.trim()) { e.preventDefault(); return; }
+      if (!f.checkValidity()) return;
+
+      // Danke-Hinweis
+      let flash = document.getElementById('flash-msg');
+      if (!flash) {
+        flash = document.createElement('div');
+        flash.id = 'flash-msg';
+        flash.textContent = 'Danke! Wir melden uns in Kürze bei dir per Mail.';
+        flash.setAttribute('role','status');
+        flash.style.cssText = 'margin-top:12px;padding:10px 12px;border-radius:10px;background:#fff;border:1px solid #cfd8e3;color:#111;font-weight:600;';
+        f.parentElement.insertBefore(flash, f.nextSibling);
+      }
+
+      // Button sperren und zur Startseite
+      btn.disabled = true; btn.textContent = 'Sende…';
+      setTimeout(() => { window.location.href = '/'; }, 1500);
     });
-  </script>
+  })();
+</script>
 </body>
 </html>
