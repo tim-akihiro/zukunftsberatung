@@ -1490,8 +1490,7 @@ img {
 .cid-uXUbEhbX3O .item .item-wrapper {
   position: relative;
   height: 100%;
-  padding: 30px;
-  display: flex;
+
   align-items: flex-end;
 }
 @media (max-width: 992px) {
@@ -2148,7 +2147,7 @@ img {
   display: flex;
   align-items: center;
   background-color: #f4f4f4;
-  padding: 32px;
+  padding: 30px;
   box-shadow: 0 .125rem .75rem #00000014;
 }
 @media (max-width: 992px) {
