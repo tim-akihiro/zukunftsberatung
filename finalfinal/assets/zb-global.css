@@ -85,7 +85,7 @@ section#features06-3d .display-2{         /* Mobirise-Klasse */
 
 /* Falls die Display-5-Textblöcke zu groß sind, dezent runter */
 section#features06-3d .display-5{
-  font-size: clamp(1.5rem, 2.4vw, 1.15rem);
+  font-size: clamp(1rem, 2.4vw, 1.15rem);
   line-height: 1.45;
 }
 
