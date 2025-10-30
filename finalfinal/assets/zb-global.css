@@ -50,11 +50,11 @@ img[width][height]{height:auto}
 body{overflow-wrap:anywhere;word-break:normal}
 
 /* 7) Optional: reduzierte Letterspacing bei großen Displays (ruhigere Optik) */
-/*
+
 @media (min-width:1200px){
   body{letter-spacing:0.003em}
 }
-*/
+
 /* === features06-3d: mehr Innenabstand + etwas kleinere Schrift === */
 
 /* Grund-Spacing in den Boxen */
