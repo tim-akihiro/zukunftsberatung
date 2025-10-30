@@ -59,12 +59,12 @@ body{overflow-wrap:anywhere;word-break:normal}
 
 /* Grund-Spacing in den Boxen */
 section#features06-3d .item .card-box{
-  padding: 0.75rem 0.7rem;         /* mobil: mehr Padding */
+  padding: 0.5rem 0.5rem;         /* mobil: mehr Padding */
 }
 
 /* ab Tablet etwas mehr */
 @media (min-width: 768px){
-  section#features06-3d .item .card-box{ padding: 1rem 1rem; }
+  section#features06-3d .item .card-box{ padding: 0.7 rem 0.7 rem; }
 }
 
 /* ab Desktop noch etwas luftiger */
@@ -74,13 +74,13 @@ section#features06-3d .item .card-box{
 
 /* Typografie in der Sektion leicht verkleinern (mobil & desktop) */
 section#features06-3d .card-text{
-  font-size: clamp(0.95rem, 1.6vw, 1.05rem);
+  font-size: clamp(1.1rem, 3.8vw, 1.75rem);
   line-height: 1.5;
 }
 
 section#features06-3d .card-number,       /* dein großer Titel unten */
 section#features06-3d .display-2{         /* Mobirise-Klasse */
-  font-size: clamp(1.1rem, 3.8vw, 1.75rem);
+  font-size: clamp(1.4rem, 6vw, 2rem);
   line-height: 1.25;
 }
 
