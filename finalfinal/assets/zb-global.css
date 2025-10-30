@@ -59,17 +59,17 @@ body{overflow-wrap:anywhere;word-break:normal}
 
 /* Grund-Spacing in den Boxen */
 section#features06-3d .item .card-box{
-  padding: 1.25rem 1rem;         /* mobil: mehr Padding */
+  padding: 0.75rem 0.7rem;         /* mobil: mehr Padding */
 }
 
 /* ab Tablet etwas mehr */
 @media (min-width: 768px){
-  section#features06-3d .item .card-box{ padding: 1.5rem 1.25rem; }
+  section#features06-3d .item .card-box{ padding: 1rem 1rem; }
 }
 
 /* ab Desktop noch etwas luftiger */
 @media (min-width: 992px){
-  section#features06-3d .item .card-box{ padding: 2rem 1.75rem; }
+  section#features06-3d .item .card-box{ padding: 1rem 1rem; }
 }
 
 /* Typografie in der Sektion leicht verkleinern (mobil & desktop) */
@@ -97,4 +97,22 @@ section#features06-3d .display-5{
     padding-right: .5rem;
     margin-bottom: .75rem;
   }
+}
+/* --- Fix: Icon-Fonts nicht überschreiben --- */
+.mbr-iconfont,
+[class*=" mbr-iconfont"],      /* falls zusätzliche Klassen dran hängen */
+.mobi-mbri {
+  font-family: 'Moririse2' !important;
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Falls du Socicon nutzt (Social Icons) */
+.socicon,
+[class*=" socicon-"] {
+  font-family: 'Socicon' !important;
 }
