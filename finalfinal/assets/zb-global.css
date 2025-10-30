@@ -116,3 +116,43 @@ section#features06-3d .display-5{
 [class*=" socicon-"] {
   font-family: 'Socicon' !important;
 }
+/* Reviews: Text oben, Name/Position darunter */
+.embla .embla__slide .item-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.embla .embla__slide .item-content { 
+  order: 1;
+  position: static !important;
+  transform: none !important;
+  margin: 0 0 12px 0 !important;
+  z-index: 1 !important;
+}
+
+.embla .embla__slide .card-box { 
+  order: 2;
+  position: static !important;
+  transform: none !important;
+  margin-top: 4px;
+}
+
+/* Name/Position Block */
+.embla .embla__slide .person-wrapper,
+.embla .embla__slide .person-wrap,
+.embla .embla__slide .item-name {
+  position: static !important;
+  transform: none !important;
+}
+
+/* Störende Overlay/Gradient unter den Text legen */
+.embla .embla__slide .gradient-wrap {
+  position: static !important;
+  z-index: 0 !important;
+}
+
+/* Einheitliche Höhe der Slides */
+.embla__container { align-items: stretch; }
+.embla__slide { height: auto; }
+
