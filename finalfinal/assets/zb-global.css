@@ -68,7 +68,7 @@ section#features06-3d .item .card-box{
 
 /* ab Desktop noch etwas luftiger */
 @media (min-width: 992px){
-  section#features06-3d .item .card-box{ padding: 1rem 1rem; }
+  section#features06-3d .item .card-box{ padding: 1.5rem 1.2rem; }
 }
 
 /* Typografie in der Sektion leicht verkleinern (mobil & desktop) */
