@@ -64,7 +64,7 @@ section#features06-3d .item .card-box{
 
 /* ab Tablet etwas mehr */
 @media (min-width: 768px){
-  section#features06-3d .item .card-box{ padding: 0.7 rem 0.7 rem; }
+  section#features06-3d .item .card-box{ padding: 0.7rem 0.7rem; }
 }
 
 /* ab Desktop noch etwas luftiger */
@@ -115,5 +115,17 @@ section#features06-3d .display-5{
 .socicon,
 [class*=" socicon-"] {
   font-family: 'Socicon' !important;
+}
+/* Desktop: display-5 in features06-3d ~+35% */
+@media (min-width: 992px){
+  section#features06-3d .card-text.display-5 {
+    font-size: 1.55rem;   /* vorher effektiv ~1.15rem → +35% */
+    line-height: 1.45;
+  }
+}
+@media (min-width: 1200px){
+  section#features06-3d .card-text.display-5 {
+    font-size: 1.6rem;    /* XL leicht größer */
+  }
 }
 
