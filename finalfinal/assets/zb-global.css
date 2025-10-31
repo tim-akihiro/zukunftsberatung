@@ -50,11 +50,7 @@ body{overflow-wrap:anywhere;word-break:normal}
 
 /* 7) Optional: reduzierte Letterspacing bei großen Displays (ruhigere Optik) */
 
-@media (min-width: 992px) {
-    .col-lg-7 {
-        flex: 0 0 auto;
-        width: 80%;
-      
+
 @media (min-width:1200px){
   body{letter-spacing:0.003em}
 }
