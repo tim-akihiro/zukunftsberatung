@@ -44,7 +44,6 @@ table{width:100%;border-collapse:collapse}
 }
 
 /* 6) Häufige Layout-Fallen entschärfen */
-[class*="col-"]{max-width:100%}
 img[width][height]{height:auto}
 body{overflow-wrap:anywhere;word-break:normal}
 
