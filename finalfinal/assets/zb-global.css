@@ -42,10 +42,10 @@ p, a, li, button, input, textarea, select, label, .btn, .card, .dropdown-menu,
 }
 
 /* 4) Type-Scale (fixe Größen + gewünschtes Letter-Spacing) */
-h1, .display-1 { font-size: 2.4rem;  letter-spacing: -0.02em;  line-height: 1.5; font-weight: 700; }
-h2, .display-2 { font-size: 2.0rem;  letter-spacing: -0.015em; line-height: 1.5; font-weight: 700; }
-h3, .display-3 { font-size: 1.6rem;  letter-spacing: -0.01em;  line-height: 1.5; font-weight: 600; }
-h4, .display-4 { font-size: 1.25rem; letter-spacing: -0.005em; line-height: 1.5; font-weight: 600; }
+h1, .display-1 { font-size: 2.4rem;  letter-spacing: -0.02em;  line-height: 1; font-weight: 700; }
+h2, .display-2 { font-size: 2.0rem;  letter-spacing: -0.015em; line-height: 1.1; font-weight: 700; }
+h3, .display-3 { font-size: 1.6rem;  letter-spacing: -0.01em;  line-height: 1.2; font-weight: 600; }
+h4, .display-4 { font-size: 1.25rem; letter-spacing: -0.005em; line-height: 1.3; font-weight: 600; }
 
 /* Displays auf die Skala mappen / Fließtext */
 .display-5 { font-size: 1.125rem; line-height: 1.5; letter-spacing: 0;    font-weight: 500; }
@@ -69,22 +69,7 @@ table { width: 100%; border-collapse: collapse; }
 img[width][height]{ height: auto; }
 body{ overflow-wrap: anywhere; word-break: normal; }
 
-/* 8) Features06-3d – kompaktere Boxen & Typo (ohne Navbar zu berühren) */
-section#features06-3d .item .card-box { padding: 0.5rem 0.5rem; }
-@media (min-width: 768px){
-  section#features06-3d .item .card-box { padding: 0.7rem 0.7rem; }
-}
-@media (min-width: 992px){
-  section#features06-3d .item .card-box { padding: 1.5rem 1.2rem; }
-}
-section#features06-3d .card-text { font-size: clamp(1rem, 3.0vw, 1.2rem); line-height: 1.5; }
-section#features06-3d .card-number,
-section#features06-3d .display-2 { font-size: clamp(1.5rem, 6vw, 2rem); line-height: 1.35; }
-@media (max-width: 575.98px){
-  section#features06-3d .items-wrapper > [class*="col-"]{
-    padding-left: .5rem; padding-right: .5rem; margin-bottom: .75rem;
-  }
-}
+
 
 /* === NAVBAR: einheitliche Größe + Gewicht (menu1) === */
 .menu1 .navbar .navbar-caption,
