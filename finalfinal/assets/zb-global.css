@@ -101,15 +101,15 @@ body{ overflow-wrap: anywhere; word-break: normal; }
 }
 
 #header01-4c .tag-wrapper > p{
-  display: inline-flex;                  /* Inline-Größe, bündig mit Titelzeile */
+  display: flex;                  /* Inline-Größe, bündig mit Titelzeile */
   position: relative;
   text-align: left;                      /* für evtl. mehrzeilige Inhalte irrelevant, aber ok */
   align-items: center;                   /* vertikal optisch zentriert, falls Icon/Badge dabei */
 
   margin: 0;                             /* Zusatzabstände eliminieren */
-  padding-top: 5px;
+  padding-top: 3px;
   padding-right: 0px;
-  padding-bottom: 5px;
+  padding-bottom: 3px;
   padding-left: 0px;
   max-width: max-content;                /* Breite = Content; verhindert „Strecken“ */
   font-size: clamp(0.85rem, 2.6vw, 1rem);/* skaliert leicht nach unten, um Umbruch zu vermeiden */
