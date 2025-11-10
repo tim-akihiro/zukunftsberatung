@@ -73,9 +73,10 @@ body{ overflow-wrap: anywhere; word-break: normal; }
 
 /* === NAVBAR: einheitliche Größe + Gewicht (menu1) === */
 .menu1 .navbar .navbar-caption,
+.menu1 .navbar .navbar-brand,
 .menu1 .navbar .nav-link {
   font-family: var(--bs-font-sans-serif) !important;
-  font-weight: 800 !important;           /* gleich wie Brand, konsistent */
+  font-weight: 700 !important;           /* gleich wie Brand, konsistent */
   font-size: clamp(.95rem, 1.6vw, 1.05rem) !important;  /* gleiche Größe */
   line-height: 1.25 !important;
   letter-spacing: 0 !important;
@@ -83,7 +84,7 @@ body{ overflow-wrap: anywhere; word-break: normal; }
 
 /* Theme hart neutralisieren */
 .menu1 .navbar .navbar-brand .navbar-caption {
-  font-weight: 800 !important;
+  font-weight: 700 !important;
 }
 
 /* Gleiche Optik bei Hover/Active */
