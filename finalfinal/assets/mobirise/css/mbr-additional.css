@@ -1396,11 +1396,11 @@ img {
   margin-bottom: 24px;
 }
 .cid-uYd4yAgQ1Q .content-wrapper .tag-wrapper .mbr-tag {
-  display: inline-block;
-  padding: 8px 0;
+  display: flex;
+  padding: 3px 0;
   position: relative;
   margin-bottom: 0;
-  text-transform: uppercase;
+
 }
 .cid-uYd4yAgQ1Q .content-wrapper .tag-wrapper .mbr-tag::before,
 .cid-uYd4yAgQ1Q .content-wrapper .tag-wrapper .mbr-tag::after {
