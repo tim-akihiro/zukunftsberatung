@@ -4,7 +4,7 @@
 @font-face {
   font-family: "Satoshi";
   src: url("/assets/fonts/satoshi/Satoshi-Variable.woff2") format("woff2-variations");
-  font-weight: 300 900;           /* aus dem Paket übernehmen, Satoshi meist 300–900 */
+  font-weight: 300 900;
   font-style: normal;
   font-display: swap;
 }
@@ -20,137 +20,72 @@
 :root{
   --bs-font-sans-serif: "Satoshi", system-ui, -apple-system, "Segoe UI",
                         Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  --font-size-base: clamp(16px, 1.2vw + 0.2rem, 18px);
-  --line-height-base: 1.6;
-
-  /* Einheitliche, fluide Typo-Scale für Überschriften/Displays */
-  --step--1: clamp(.86rem, .80rem + 0.20vw, .95rem);
-  --step-0:  clamp(1.00rem, .90rem + 0.40vw, 1.125rem);
-  --step-1:  clamp(1.25rem, 1.10rem + 0.80vw, 1.50rem);
-  --step-2:  clamp(1.50rem, 1.30rem + 1.20vw, 1.875rem);
-  --step-3:  clamp(1.90rem, 1.50rem + 2.00vw, 2.375rem);
-  --step-4:  clamp(2.40rem, 1.80rem + 3.00vw, 3.00rem);
 }
 
-/* 3) Global anwenden + harte Mobirise-Fonts neutralisieren */
-html{ -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+/* 3) Global anwenden (keine Navbar-Weights überschreiben) */
+html { font-size: 20px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; } /* Base = 20px */
 body{
-  margin:0;
+  margin: 0;
   font-family: var(--bs-font-sans-serif) !important;
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-base);
+  font-size: 1rem;           /* 20px */
+  line-height: 1.5;          /* global 1.5x */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
-/* Alles, was vom Theme hart einen Font setzt, erbt jetzt Satoshi */
-h1,h2,h3,h4,h5,h6,p,a,li,button,input,textarea,select,label,
-.navbar,.menu,.btn,.card,.dropdown-menu,.modal,.alert,
-.display-1,.display-2,.display-3,.display-4,.display-5,.display-6,
-[class*="mbr-"],[class*="mobirise"],[class*="socicon"], .mbr-fonts-style{
+
+/* Theme-Fonts auf unsere Basis zwingen (ohne Navbar-Weights anzufassen) */
+.mbr-fonts-style, [class*="mbr-"], [class*="mobirise"],
+p, a, li, button, input, textarea, select, label, .btn, .card, .dropdown-menu,
+.modal, .alert, .display-1, .display-2, .display-3, .display-4, .display-5, .display-6, .display-7 {
   font-family: var(--bs-font-sans-serif) !important;
 }
 
-/* 4) Headings/Displays an die Scale binden (einheitliche Skalierung mobil/desktop) */
-h1, .display-1 { font-size: var(--step-4); line-height: 1.10; letter-spacing: -.01em; }
-h2, .display-2 { font-size: var(--step-3); line-height: 1.15; letter-spacing: -.005em; }
-h3, .display-3 { font-size: var(--step-2); line-height: 1.20; }
-h4, .display-4 { font-size: var(--step-1); line-height: 1.30; }
-h5, .display-5 { font-size: var(--step-0); line-height: 1.40; }
-h6, .display-6 { font-size: var(--step--1); line-height: 1.50; }
+/* 4) Type-Scale (fixe Größen + gewünschtes Letter-Spacing) */
+h1, .display-1 { font-size: 2.4rem;  letter-spacing: -0.02em;  line-height: 1.5; font-weight: 700; }
+h2, .display-2 { font-size: 2.0rem;  letter-spacing: -0.015em; line-height: 1.5; font-weight: 700; }
+h3, .display-3 { font-size: 1.6rem;  letter-spacing: -0.01em;  line-height: 1.5; font-weight: 600; }
+h4, .display-4 { font-size: 1.25rem; letter-spacing: -0.005em; line-height: 1.5; font-weight: 600; }
 
-/* 5) Icon-Fonts nicht beeinflussen */
+/* Displays auf die Skala mappen / Fließtext */
+.display-5 { font-size: 1.125rem; line-height: 1.5; letter-spacing: 0;    font-weight: 500; }
+.display-6,
+.display-7 { font-size: 1rem;    line-height: 1.5; letter-spacing: 0;    font-weight: 500; }
+
+/* 5) Icon-Fonts nicht überschreiben */
 .mbr-iconfont, [class*=" mbr-iconfont"], .mobi-mbri { font-family: "Moririse2" !important; font-style: normal; }
 
-
-/* 5) Responsive Medien und Container */
-img,svg,video,canvas{max-width:100%;height:auto}
-iframe{max-width:100%}
-table{width:100%;border-collapse:collapse}
-.container,.wrapper,.content{
-  width: min(100%, var(--content-max));
+/* 6) Responsive Medien und Container */
+img, svg, video, canvas { max-width: 100%; height: auto; }
+iframe { max-width: 100%; }
+table { width: 100%; border-collapse: collapse; }
+.container, .wrapper, .content {
+  width: min(100%, var(--content-max, 1200px));
   margin-inline: auto;
   padding-inline: 1rem;
 }
 
-/* 6) Layout-Falle */
-img[width][height]{height:auto}
-body{overflow-wrap:anywhere;word-break:normal}
+/* 7) Layout-Fallen */
+img[width][height]{ height: auto; }
+body{ overflow-wrap: anywhere; word-break: normal; }
 
-
-@media (min-width:1200px){
-  body{letter-spacing:0.003em}
-}
-/* Grund-Spacing in den Boxen */
-section#features06-3d .item .card-box{
-  padding: 0.5rem 0.5rem;         /* mobil: mehr Padding */
-}
-
-/* ab Tablet etwas mehr */
+/* 8) Features06-3d – kompaktere Boxen & Typo (ohne Navbar zu berühren) */
+section#features06-3d .item .card-box { padding: 0.5rem 0.5rem; }
 @media (min-width: 768px){
-  section#features06-3d .item .card-box{ padding: 0.7rem 0.7rem; }
+  section#features06-3d .item .card-box { padding: 0.7rem 0.7rem; }
 }
-
-/* ab Desktop noch etwas luftiger */
 @media (min-width: 992px){
-  section#features06-3d .item .card-box{ padding: 1.5rem 1.2rem; }
+  section#features06-3d .item .card-box { padding: 1.5rem 1.2rem; }
 }
-
-/* Typografie in der Sektion leicht verkleinern (mobil & desktop) */
-section#features06-3d .card-text{
-  font-size: clamp(1.1rem, 3.8vw, 1.75rem);
-  line-height: 1.5;
-}
-
-section#features06-3d .card-number,       /* dein großer Titel unten */
-section#features06-3d .display-2{         /* Mobirise-Klasse */
-  font-size: clamp(1.5rem, 6vw, 2rem);
-  line-height: 1.25;
-}
-
-/* Falls die Display-5-Textblöcke zu groß sind, dezent runter */
-section#features06-3d .display-5{
-  font-size: clamp(1rem, 2.4vw, 1.15rem);
-  line-height: 1.45;
-}
-
-/* Optional: etwas Abstand zwischen den Boxen auf sehr kleinen Screens */
+section#features06-3d .card-text { font-size: clamp(1rem, 3.0vw, 1.2rem); line-height: 1.5; }
+section#features06-3d .card-number,
+section#features06-3d .display-2 { font-size: clamp(1.5rem, 6vw, 2rem); line-height: 1.35; }
 @media (max-width: 575.98px){
   section#features06-3d .items-wrapper > [class*="col-"]{
-    padding-left: .5rem;
-    padding-right: .5rem;
-    margin-bottom: .75rem;
+    padding-left: .5rem; padding-right: .5rem; margin-bottom: .75rem;
   }
-}
-/* --- Fix: Icon-Fonts nicht überschreiben --- */
-.mbr-iconfont,
-[class*=" mbr-iconfont"],      /* falls zusätzliche Klassen dran hängen */
-.mobi-mbri {
-  font-family: 'Moririse2' !important;
-  font-style: normal;
-  font-weight: normal;
-  speak: none;
-  text-transform: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-.socicon,
-[class*=" socicon-"] {
-  font-family: 'Socicon' !important;
-}
-/* Desktop: display-5 in features06-3d ~+35% */
-@media (min-width: 992px){
-  section#features06-3d .card-text.display-5 {
-    font-size: 1.55rem;   /* vorher effektiv ~1.15rem → +35% */
-    line-height: 1.45;
-  }
-}
-@media (min-width: 1200px){
-  section#features06-3d .card-text.display-5 {
-    font-size: 1.6rem;    /* XL leicht größer */
-  }
-}
 /* === NAVBAR: einheitliche Größe + Gewicht (menu1) === */
 .menu1 .navbar .navbar-caption,
 .menu1 .navbar .nav-link {
@@ -172,4 +107,5 @@ section#features06-3d .display-5{
 .menu1 .navbar .nav-link.active {
   font-weight: 600 !important;
 }
+
 
