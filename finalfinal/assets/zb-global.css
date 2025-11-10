@@ -119,4 +119,71 @@ body{ overflow-wrap: anywhere; word-break: normal; }
   line-height: 1.2;                      
 }
 
+/* === Features06-3d: kompakter & mobil sauber ===================== */
+section#features06-3d{
+  padding-top: 1.25rem;
+  padding-bottom: 1.75rem;
+}
+
+/* Spaltenabstände kleiner */
+section#features06-3d .items-wrapper { margin: 0 -6px; }
+section#features06-3d .items-wrapper > [class*="col-"] { padding: 0 6px; }
+@media (min-width: 768px){
+  section#features06-3d .items-wrapper { margin: 0 -8px; }
+  section#features06-3d .items-wrapper > [class*="col-"] { padding: 0 8px; }
+}
+
+/* Karten: weniger Außenabstand */
+section#features06-3d .item{ margin-bottom: 12px; }
+@media (min-width: 992px){ section#features06-3d .item{ margin-bottom: 16px; } }
+
+/* Innenabstände + Höhe der Card */
+section#features06-3d .item .item-wrapper{
+  height: auto;                 /* weg von fixer Höhe */
+  padding: 16px;
+  display: flex;
+  align-items: flex-start;      /* Text startet oben */
+}
+@media (min-width: 768px){ section#features06-3d .item .item-wrapper{ padding: 18px; } }
+@media (min-width: 992px){ section#features06-3d .item .item-wrapper{ padding: 20px; } }
+
+/* Bildbereich: mobil schlanker */
+section#features06-3d .item .item-wrapper .item-img{ height: auto; position: relative; }
+@media (max-width: 575.98px){ section#features06-3d .item .item-wrapper .item-img{ height: 180px; } }
+@media (min-width: 576px) and (max-width: 991.98px){
+  section#features06-3d .item .item-wrapper .item-img{ height: 200px; }
+}
+section#features06-3d .item .item-wrapper .item-img img{
+  position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;
+}
+
+/* Typo: Text nicht mehr 50% breit */
+section#features06-3d .card-box .text-wrap .card-text{
+  display: block;
+  width: 100% !important;       /* überschreibt die 50%-Breite */
+  margin-bottom: 0;
+}
+section#features06-3d .card-title{ margin-bottom: 10px; }
+
+/* Nummer: mobil links, Desktop rechts */
+section#features06-3d .card-number{ text-align: left; margin-top: 6px; }
+@media (min-width: 992px){
+  section#features06-3d .card-number{ text-align: right; margin-top: 0; }
+}
+
+/* Harte Mindesthöhen killen */
+section#features06-3d .card_1,
+section#features06-3d .card_2,
+section#features06-3d .card_3,
+section#features06-3d .card_4,
+section#features06-3d .card_5,
+section#features06-3d .features-image .item-wrapper{
+  min-height: auto !important;
+}
+
+/* Optional: XS-Feinschliff für bessere Lesbarkeit */
+@media (max-width: 575.98px){
+  section#features06-3d .card-title{ font-size: 1.1rem; }
+  section#features06-3d .card-text{  font-size: 0.95rem; }
+}
 
