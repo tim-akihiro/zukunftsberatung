@@ -78,14 +78,9 @@ img[width][height]{height:auto}
 body{overflow-wrap:anywhere;word-break:normal}
 
 
-
-
 @media (min-width:1200px){
   body{letter-spacing:0.003em}
 }
-
-/* === features06-3d: mehr Innenabstand + etwas kleinere Schrift === */
-
 /* Grund-Spacing in den Boxen */
 section#features06-3d .item .card-box{
   padding: 0.5rem 0.5rem;         /* mobil: mehr Padding */
@@ -140,7 +135,6 @@ section#features06-3d .display-5{
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Falls du Socicon nutzt (Social Icons) */
 .socicon,
 [class*=" socicon-"] {
   font-family: 'Socicon' !important;
@@ -156,5 +150,26 @@ section#features06-3d .display-5{
   section#features06-3d .card-text.display-5 {
     font-size: 1.6rem;    /* XL leicht größer */
   }
+}
+/* === NAVBAR: einheitliche Größe + Gewicht (menu1) === */
+#menu1 .navbar .navbar-caption,
+#menu1 .navbar .nav-link {
+  font-family: var(--bs-font-sans-serif) !important;
+  font-weight: 600 !important;           /* gleich wie Brand, konsistent */
+  font-size: clamp(.95rem, 1.6vw, 1.05rem) !important;  /* gleiche Größe */
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+}
+
+/* Theme hart neutralisieren */
+#menu1 .navbar .navbar-brand .navbar-caption {
+  font-weight: 600 !important;
+}
+
+/* Gleiche Optik bei Hover/Active */
+#menu1 .navbar .nav-link:hover,
+#menu1 .navbar .nav-link:focus,
+#menu1 .navbar .nav-link.active {
+  font-weight: 600 !important;
 }
 
