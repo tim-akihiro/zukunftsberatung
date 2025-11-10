@@ -102,15 +102,15 @@ body{ overflow-wrap: anywhere; word-break: normal; }
 }
 
 #header01-4c .tag-wrapper > p{
-  display: flex;                
-  position: relative;
-  text-align: left;                      /* für mehrzeilige Inhalte irrelevant, aber ok */
+  display: flex;            !important    
+  position: relative;       !important    
+  text-align: left;         !important                
   align-items: center;                   /* vertikal optisch zentriert, falls Icon/Badge dabei */
 
   margin: 0;                             /* Zusatzabstände eliminieren */
-  padding-top: 3px;
+  padding-top: 3px;         !important 
   padding-right: 0px;
-  padding-bottom: 3px;
+  padding-bottom: 3px;      !important 
   padding-left: 0px;
   max-width: max-content;                /* Breite = Content; verhindert „Strecken“ */
   font-size: clamp(0.85rem, 2.6vw, 1rem);/* skaliert leicht nach unten, um Umbruch zu vermeiden */
