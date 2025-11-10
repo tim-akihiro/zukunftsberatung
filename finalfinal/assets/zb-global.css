@@ -92,5 +92,29 @@ body{ overflow-wrap: anywhere; word-break: normal; }
 .menu1 .navbar .nav-link.active {
   font-weight: 600 !important;
 }
+/* === header01-4c: Tag unter Titel/Subtitel linksbündig & ohne Umbruch === */
+#header01-4c .content-wrapper { 
+  text-align: left !important;           /* überschreibt evtl. 'text-center' vom Theme */
+}
+#header01-4c .tag-wrapper { 
+  text-align: left !important;           /* safety, falls auf dem Wrapper gesetzt ist */
+}
+
+#header01-4c .tag-wrapper > p{
+  display: inline-flex;                  /* Inline-Größe, bündig mit Titelzeile */
+  position: relative;
+  text-align: left;                      /* für evtl. mehrzeilige Inhalte irrelevant, aber ok */
+  align-items: center;                   /* vertikal optisch zentriert, falls Icon/Badge dabei */
+  white-space: nowrap;                   /* kein Zeilenumbruch auf Mobile */
+  margin: 0;                             /* Zusatzabstände eliminieren */
+  padding-top: 5px;
+  padding-right: 0px;
+  padding-bottom: 5px;
+  padding-left: 0px;
+  max-width: max-content;                /* Breite = Content; verhindert „Strecken“ */
+  font-size: clamp(0.85rem, 2.6vw, 1rem);/* skaliert leicht nach unten, um Umbruch zu vermeiden */
+  letter-spacing: inherit;               /* folgt deiner globalen Skala */
+  line-height: 1.2;                      /* bleibt in deiner globalen Typo-Logik */
+}
 
 
