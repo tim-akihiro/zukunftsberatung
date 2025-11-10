@@ -92,7 +92,7 @@ body{ overflow-wrap: anywhere; word-break: normal; }
 .menu1 .navbar .nav-link.active {
   font-weight: 600 !important;
 }
-/* === header01-4c: Tag unter Titel/Subtitel linksbündig & ohne Umbruch === */
+/* === header01-4c: Tag unter Titel/Subtitel linksbündig /
 #header01-4c .content-wrapper { 
   text-align: left !important;           /* überschreibt evtl. 'text-center' vom Theme */
 }
@@ -105,7 +105,7 @@ body{ overflow-wrap: anywhere; word-break: normal; }
   position: relative;
   text-align: left;                      /* für evtl. mehrzeilige Inhalte irrelevant, aber ok */
   align-items: center;                   /* vertikal optisch zentriert, falls Icon/Badge dabei */
-  white-space: nowrap;                   /* kein Zeilenumbruch auf Mobile */
+
   margin: 0;                             /* Zusatzabstände eliminieren */
   padding-top: 5px;
   padding-right: 0px;
