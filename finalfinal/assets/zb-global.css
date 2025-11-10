@@ -186,4 +186,6 @@ section#features06-3d .features-image .item-wrapper{
   section#features06-3d .card-title{ font-size: 1.1rem; }
   section#features06-3d .card-text{  font-size: 0.95rem; }
 }
+/* features06-3d: Bildspalte entfernen */
+#features06-3d .features-image { display: none !important; }
 
