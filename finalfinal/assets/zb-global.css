@@ -1,11 +1,21 @@
-/* ==== ZB GLOBAL – letzte CSS-Datei im <head> laden ==== */
-
-/* 1) Globaler Font-Schalter für Bootstrap + Fallbacks */
 :root{
-  --bs-font-sans-serif: "Liter", system-ui, -apple-system, "Segoe UI",
-                        Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  --font-size-base: clamp(16px, 1.2vw + 0.2rem, 18px);
-  --line-height-base: 1.6;
+  
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/assets/fonts/satoshi/Satoshi-Variable.woff2") format("woff2-variations");
+
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("/assets/fonts/satoshi/Satoshi-VariableItalic.woff2") format("woff2-variations");
+
+  font-style: italic;
+  font-display: swap;
+}
+
 }
 
 /* 2) Basis */
@@ -29,9 +39,9 @@ h1,h2,h3,h4,h5,h6,p,a,li,button,input,textarea,select,label,
 }
 
 /* 4) Überschriften-Gewichte konsistent */
-h1{font-weight:700}
-h2{font-weight:600}
-h3{font-weight:500}
+h1{font-weight:650}
+h2{font-weight:500}
+h3{font-weight:380}
 
 /* 5) Responsive Medien und Container */
 img,svg,video,canvas{max-width:100%;height:auto}
@@ -43,11 +53,11 @@ table{width:100%;border-collapse:collapse}
   padding-inline: 1rem;
 }
 
-/* 6) Häufige Layout-Fallen entschärfen */
+/* 6) Layout-Falle */
 img[width][height]{height:auto}
 body{overflow-wrap:anywhere;word-break:normal}
 
-/* 7) Optional: reduzierte Letterspacing bei großen Displays (ruhigere Optik) */
+
 
 
 @media (min-width:1200px){
