@@ -189,7 +189,7 @@ section#features06-3d .features-image .item-wrapper{
 /* features06-3d: Bildspalte entfernen */
 #features06-3d .features-image { display: none !important; }
 
-.why-important .card, .why-us .card { border-radius: 14px; border:1px solid rgba(0,0,0,.08); }
+.why-important .card, .why-us .card { border-radius: 10px; border:1px solid rgba(0,0,0,.08); }
 .logo-strip img { opacity:.85; filter:grayscale(100%); transition:opacity .2s ease; }
 .logo-strip img:hover { opacity:1; filter:none; }
 .trusted-by .badge { border-radius: 10px; }
