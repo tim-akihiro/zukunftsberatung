@@ -22,7 +22,7 @@
                         Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
 
-/* 3) Global anwenden (keine Navbar-Weights überschreiben) */
+
 html { font-size: 20px; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; } /* Base = 20px */
 body{
   margin: 0;
@@ -34,14 +34,14 @@ body{
   text-rendering: optimizeLegibility;
 }
 
-/* Theme-Fonts auf unsere Basis zwingen (ohne Navbar-Weights anzufassen) */
+/* Theme-Fonts auf Basis zwingen  */
 .mbr-fonts-style, [class*="mbr-"], [class*="mobirise"],
 p, a, li, button, input, textarea, select, label, .btn, .card, .dropdown-menu,
 .modal, .alert, .display-1, .display-2, .display-3, .display-4, .display-5, .display-6, .display-7 {
   font-family: var(--bs-font-sans-serif) !important;
 }
 
-/* 4) Type-Scale (fixe Größen + gewünschtes Letter-Spacing) */
+/* 4) Type-Scale */
 h1, .display-1 { font-size: 2.4rem;  letter-spacing: -0.02em;  line-height: 1; font-weight: 700; }
 h2, .display-2 { font-size: 2.0rem;  letter-spacing: -0.015em; line-height: 1.1; font-weight: 700; }
 h3, .display-3 { font-size: 1.6rem;  letter-spacing: -0.01em;  line-height: 1.2; font-weight: 600; }
@@ -91,7 +91,7 @@ body{ overflow-wrap: anywhere; word-break: normal; }
 .menu1 .navbar .nav-link:hover,
 .menu1 .navbar .nav-link:focus,
 .menu1 .navbar .nav-link.active {
-  font-weight: 600 !important;
+  font-weight: 500 !important;
 }
 /* === header01-4c: Tag unter Titel/Subtitel linksbündig /
 
