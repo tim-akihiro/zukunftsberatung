@@ -193,3 +193,15 @@ section#features06-3d .features-image .item-wrapper{
 .logo-strip img { opacity:.85; filter:grayscale(100%); transition:opacity .2s ease; }
 .logo-strip img:hover { opacity:1; filter:none; }
 .trusted-by .badge { border-radius: 10px; } !important
+/* Logoleiste strikt auf Icon-Höhe begrenzen */
+#why-us .logo-strip { 
+  display:flex; flex-wrap:wrap; align-items:center; gap:12px;
+}
+#why-us .logo-strip img{
+  height:28px !important;      /* ZIELHÖHE */
+  width:auto !important;        /* Breite aus Höhe ableiten */
+  max-width:none !important;    /* überschreibt evtl. 100% Regeln */
+  object-fit:contain;
+  display:inline-block;         /* falls global block + width:100% gesetzt ist */
+}
+
