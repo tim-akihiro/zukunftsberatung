@@ -394,7 +394,7 @@
 							<li class="item-wrap"><strong>Kontaktformular erneuern</strong></li>
 							<li class="item-wrap"><strong>Design aktualisieren</strong></li>
                         </ul><br>
-						<div class="mbr-section-btn"><a class="btn item-btn btn-info display-7" href="digitale-praesenz.html#form01-4u">Anfrage</a></div>
+						<div class="mbr-section-btn"><a class="btn item-btn btn-info display-7" href="digitale-praesenz.html#form01-4u">Anfrage</a></div><br>
                     </div>
                 </div>
             </div><div class="col-12 col-lg-4 item features-without-image">
@@ -413,7 +413,27 @@
 							<li class="item-wrap"><strong>Finale Freigabe durch Sie vor der Veröffentlichung</strong></li>
 							<li class="item-wrap"><strong>Inklusive passendem Bildmaterial.</strong></li>
 						</ul><br>
-						<div class="mbr-section-btn"><a class="btn item-btn btn-info display-7" href="https://www.paypal.com/webapps/billing/plans/subscribe?plan_id=P-1LW19525UF159920UNEN2GZQ">Abonnieren</a></div>
+						<div id="paypal-button-container-P-1LW19525UF159920UNEN2GZQ"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=AUfR_qUxE4Ux5c_7hPLYgf59wN4otEMBgBhVjlRVVYXQGzSgg5dBjTZtUeqw_wYRA6OGzkEiXpXysmJM&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'pill',
+          color: 'black',
+          layout: 'horizontal',
+          label: 'subscribe'
+      },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({
+          /* Creates the subscription */
+          plan_id: 'P-1LW19525UF159920UNEN2GZQ'
+        });
+      },
+      onApprove: function(data, actions) {
+        alert(data.subscriptionID); // You can add optional success message for the subscriber here
+      }
+  }).render('#paypal-button-container-P-1LW19525UF159920UNEN2GZQ'); // Renders the PayPal button
+</script>
                     </div>
                 </div>
             </div>
