@@ -204,4 +204,9 @@ section#features06-3d .features-image .item-wrapper{
   object-fit:contain;
   display:inline-block;         /* falls global block + width:100% gesetzt ist */
 }
+/* Hintergrund für die Why-Sections */
+section.why-important,
+section.why-us {
+  background-color: #f4f4f4;
+}
 
