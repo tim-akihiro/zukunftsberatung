@@ -233,3 +233,37 @@ section.why-us {
 .footer01 .legal-links a:hover {
   text-decoration: underline;
 }
+/* Footer: genug Platz über Chatbot / Cookie-Buttons lassen */
+.footer01 {
+  padding-bottom: 80px; /* Abstand nach unten, damit nichts vom Chat-Button verdeckt wird */
+}
+
+@media (max-width: 768px) {
+  .footer01 {
+    padding-bottom: 110px; /* auf Mobil etwas mehr Platz */
+  }
+}
+/* Footer: Rechtelinks als zentrierte, kleine Zeile */
+.footer01 .legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;     /* mittig statt linksbündig */
+  gap: 0.5rem 1.25rem;
+  margin: 0.75rem 0 0;         /* leicht nach oben ziehen, nicht am „harten“ Rand kleben */
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;           /* kleiner als normaler Body-Text */
+}
+
+.footer01 .legal-links .item-wrap {
+  margin: 0;
+}
+
+.footer01 .legal-links a {
+  text-decoration: none;
+}
+
+.footer01 .legal-links a:hover {
+  text-decoration: underline;
+}
+
