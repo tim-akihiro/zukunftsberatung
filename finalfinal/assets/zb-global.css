@@ -210,3 +210,26 @@ section.why-us {
   background-color: #f4f4f4;
 }
 
+/* Footer: Rechtelinks als kleine Zeile unten */
+.footer01 .legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  justify-content: flex-start;   /* ggf. center oder flex-end, je nach Wunsch */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.8rem;             /* kleiner als Standard */
+}
+
+.footer01 .legal-links .item-wrap {
+  margin: 0;
+}
+
+.footer01 .legal-links a {
+  text-decoration: none;
+}
+
+.footer01 .legal-links a:hover {
+  text-decoration: underline;
+}
